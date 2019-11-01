@@ -1,0 +1,79 @@
+\BOOKMARK [1][-]{section*.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section*.2}{Averages of Random Variables}{}% 2
+\BOOKMARK [2][-]{section*.3}{Law of Large Numbers \(Weak and Strong\)}{section*.2}% 3
+\BOOKMARK [2][-]{section*.4}{Central Limit Theorem \(CLT\)}{section*.2}% 4
+\BOOKMARK [1][-]{section*.5}{Inequalities}{}% 5
+\BOOKMARK [2][-]{section*.6}{Markov}{section*.5}% 6
+\BOOKMARK [2][-]{section*.7}{Chebyshev}{section*.5}% 7
+\BOOKMARK [2][-]{section*.8}{Hoeffding}{section*.5}% 8
+\BOOKMARK [1][-]{section*.9}{Three types of convergence}{}% 9
+\BOOKMARK [2][-]{section*.10}{Almost surely \(a.s.\)}{section*.9}% 10
+\BOOKMARK [2][-]{section*.11}{Convergence in probability}{section*.9}% 11
+\BOOKMARK [2][-]{section*.12}{Convergence in distribution}{section*.9}% 12
+\BOOKMARK [1][-]{section*.13}{Operations on Sequences and Convergence}{}% 13
+\BOOKMARK [2][-]{section*.14}{Slutsky's Theorem}{section*.13}% 14
+\BOOKMARK [2][-]{section*.15}{Continuous Mapping Theorem}{section*.13}% 15
+\BOOKMARK [1][-]{section*.16}{Statistical models}{}% 16
+\BOOKMARK [2][-]{section*.17}{Identifiability}{section*.16}% 17
+\BOOKMARK [1][-]{section*.18}{Estimation}{}% 18
+\BOOKMARK [2][-]{section*.19}{Bias of an estimator}{section*.18}% 19
+\BOOKMARK [2][-]{section*.20}{Jensen's Inequality}{section*.18}% 20
+\BOOKMARK [2][-]{section*.21}{Variance of estimators}{section*.18}% 21
+\BOOKMARK [2][-]{section*.22}{Quadratic risk of estimators}{section*.18}% 22
+\BOOKMARK [1][-]{section*.23}{Confidence Intervals}{}% 23
+\BOOKMARK [2][-]{section*.24}{Example 1: Bernoulli statistical model}{section*.23}% 24
+\BOOKMARK [2][-]{section*.25}{Some confidence interval solutions}{section*.23}% 25
+\BOOKMARK [3][-]{section*.26}{Solution 1: Conservative bound}{section*.25}% 26
+\BOOKMARK [3][-]{section*.27}{Solution 2: Solve the quadratic equation for p}{section*.25}% 27
+\BOOKMARK [3][-]{section*.28}{Solution 3: Plug-in}{section*.25}% 28
+\BOOKMARK [2][-]{section*.29}{Example 2: Exponential statistical model}{section*.23}% 29
+\BOOKMARK [2][-]{section*.30}{Delta Method}{section*.23}% 30
+\BOOKMARK [1][-]{section*.31}{Hypothesis Testing}{}% 31
+\BOOKMARK [2][-]{section*.32}{Asymmetry in the Hypotheses}{section*.31}% 32
+\BOOKMARK [2][-]{section*.33}{A test}{section*.31}% 33
+\BOOKMARK [2][-]{section*.34}{Errors}{section*.31}% 34
+\BOOKMARK [2][-]{section*.35}{Level, test statistic and rejection region}{section*.31}% 35
+\BOOKMARK [2][-]{section*.36}{p-value}{section*.31}% 36
+\BOOKMARK [1][-]{section*.37}{Methods for estimation}{}% 37
+\BOOKMARK [2][-]{section*.38}{Total Variation Distance}{section*.37}% 38
+\BOOKMARK [3][-]{section*.39}{Total variation distance between discrete measures}{section*.38}% 39
+\BOOKMARK [3][-]{section*.40}{Total variation distance between continuous measures}{section*.38}% 40
+\BOOKMARK [3][-]{section*.41}{Properties of Total Variation Distance}{section*.38}% 41
+\BOOKMARK [3][-]{section*.42}{Limitations of Total Variation Distance}{section*.38}% 42
+\BOOKMARK [2][-]{section*.43}{Kullback-Leibler \(KL\) Divergence}{section*.37}% 43
+\BOOKMARK [3][-]{section*.44}{Properties of KL divergence}{section*.43}% 44
+\BOOKMARK [1][-]{section*.45}{Maximum Likelihood Estimation}{}% 45
+\BOOKMARK [2][-]{section*.46}{Estimating the KL divergence}{section*.45}% 46
+\BOOKMARK [3][-]{section*.47}{Maximum likelihood principle}{section*.46}% 47
+\BOOKMARK [3][-]{section*.48}{Maximum Likelihood Estimator \(1\)}{section*.46}% 48
+\BOOKMARK [2][-]{section*.49}{Likelihood: Discrete Case}{section*.45}% 49
+\BOOKMARK [3][-]{section*.50}{Bernouilli}{section*.49}% 50
+\BOOKMARK [3][-]{section*.51}{Poisson}{section*.49}% 51
+\BOOKMARK [2][-]{section*.52}{Likelihood: Continuous Case}{section*.45}% 52
+\BOOKMARK [3][-]{section*.53}{Gaussian}{section*.52}% 53
+\BOOKMARK [3][-]{section*.54}{Exponential}{section*.52}% 54
+\BOOKMARK [3][-]{section*.55}{Uniform}{section*.52}% 55
+\BOOKMARK [3][-]{section*.56}{Maximum Likelihood Estimator \(2\)}{section*.52}% 56
+\BOOKMARK [2][-]{section*.57}{Maximizing/minimizing functions}{section*.45}% 57
+\BOOKMARK [3][-]{section*.58}{Concave \(or convex\) functions}{section*.57}% 58
+\BOOKMARK [3][-]{section*.59}{Multivariate concave functions}{section*.57}% 59
+\BOOKMARK [3][-]{section*.60}{Optimality Conditions}{section*.57}% 60
+\BOOKMARK [3][-]{section*.61}{Examples of Maximum Likelihood Estimators}{section*.57}% 61
+\BOOKMARK [3][-]{section*.62}{Consistency of maximum likelihood estimator}{section*.57}% 62
+\BOOKMARK [2][-]{section*.63}{Covariance}{section*.45}% 63
+\BOOKMARK [3][-]{section*.64}{Properties of Covariance}{section*.63}% 64
+\BOOKMARK [3][-]{section*.65}{Covariance Matrix}{section*.63}% 65
+\BOOKMARK [3][-]{section*.66}{The Multivariate Gaussian Distribution}{section*.63}% 66
+\BOOKMARK [3][-]{section*.67}{The Multivariate CLT}{section*.63}% 67
+\BOOKMARK [3][-]{section*.68}{The Multivariate Delta Method}{section*.63}% 68
+\BOOKMARK [3][-]{section*.69}{Fisher Information}{section*.63}% 69
+\BOOKMARK [3][-]{section*.70}{Fisher Information explicitly from the pdf/pmf}{section*.63}% 70
+\BOOKMARK [3][-]{section*.71}{ Asymptotic normality of the MLE}{section*.63}% 71
+\BOOKMARK [1][-]{section*.72}{Method of Moments}{}% 72
+\BOOKMARK [1][-]{section*.73}{Hypothesis Testing}{}% 73
+\BOOKMARK [2][-]{section*.74}{Parametric Hypothesis Testing}{section*.73}% 74
+\BOOKMARK [3][-]{section*.75}{The \mitchi 2 distribution}{section*.74}% 75
+\BOOKMARK [3][-]{section*.76}{Sample variance and Cochran's Theorem}{section*.74}% 76
+\BOOKMARK [3][-]{section*.77}{Wald's Test}{section*.74}% 77
+\BOOKMARK [3][-]{section*.78}{Likelihood Ratio Test}{section*.74}% 78
+\BOOKMARK [3][-]{section*.79}{Welch-Satterthwaite formula}{section*.74}% 79

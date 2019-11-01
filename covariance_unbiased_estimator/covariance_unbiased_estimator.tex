@@ -1,0 +1,76 @@
+% Unbiased estimator of population covariance
+
+\documentclass[10pt,landscape]{article}
+\usepackage{luacode}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bbm} %for indicator 1
+\usepackage{dsfont} %for indicator 1 (the one I use)
+\usepackage{booktabs,caption,multirow,array} %for tables
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+
+\DeclareMathOperator*{\argmax}{argmax} % the * ensures that any limits etc go underneath the operator
+
+%for vectors and matrices - seems to force me to not use pdflatex. Have switched to lualatex.
+\usepackage{mathtools}
+\usepackage{unicode-math}
+\setmathfont{XITS Math}
+\newcommand*{\matr}[1]{\mathbfit{#1}}
+\newcommand*{\tran}{^{\mkern-1.5mu\mathsf{T}}}
+\newcommand*{\conj}[1]{\overline{#1}}
+\newcommand*{\hermconj}{^{\mathsf{H}}}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\section*{Unbiased estimator for $\textsf{Cov}(X,Y)$}
+
+This is Exercise 7 of Lecture 10 in MITx: 18.6501x Fundamentals of Statistics.\\
+
+Let $(X_1,Y_1),\, (X_2,Y_2),\ldots ,(X_ n,Y_ n) \stackrel{iid}{\sim } (X,Y)$, with$\mathbb E[X]=\mu _ X$, $\mathbb E[Y]=\mu _ XY$ and $\mathbb E[XY]=\mu _ XY$. That is, each random variable pair $(X_1,Y_1)$ has the same distribution as the random variable pair $(X,Y)$ and the pairs are independent of one another.\\
+
+Estimating the covariance between $X$  and $Y$ based on observed sequences is useful because non-zero covariance implies dependence between $X$ and $Y$. In this problem, we study one way to obtain an unbiased estimator for $\textsf{Cov}(X,Y)$. \\
+
+Consider the following estimator for the covariance:
+
+$$\widetilde{S}_{XY} = \frac{1}{n}\left(\sum _{i=1}^ n \left(X_ i - \overline{X}_ n\right)\left(Y_ i - \overline{Y}_ n \right)\right),$$
+
+where $\overline X_n$ and $\overline Y_n$ are the sample mean estimators of $\mu_X$ and $\mu_Y$.\\
+
+First, we note that
+
+\begin{align*}
+\mathbb{E} \left[\frac{\left(\sum_{i=1}^nX_i\right)\left(\sum_{j=1}^nY_j\right)}{n}\right]&=\frac{1}{n}\mathbb{E} \left[\sum_{i=1}^nX_iY_i + \sum_{i=1}^n \sum_{i\neq j=1}^n X_i Y_j\right]\\
+&=\mu_{XY}+(n-1)\mu_X\mu_Y
+\end{align*}
+where we have used the property that $X_i$ and $Y_j$ are independent whenever $i\neq j.$
+(In the first of the product of sums, we need to divide by $n$, and we are, but in the second, we need to divide by $(n-1)$, but we are not, so this multiplier needs to appear in the final answer.)\\
+
+Then,
+
+\begin{align*}
+\mathbb{E}\left[\widetilde{S}_{XY}\right]&=\frac{1}{n}\mathbb{E}\left[\sum _{i=1}^ n \left(X_ i - \overline{X}_ n\right)\left(Y_ i - \overline{Y}_ n \right)\right]\\
+&=\frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n X_iY_i  - \frac{\sum_{i=1}^n X_i}{n}\sum_{j=1}^n Y_j  - \frac{\sum_{i=1}^n Y_i}{n}\sum_{j=1}^n X_j  + \frac{\sum_{i=1}^n X_i \sum_{j=1}^n Y_j}{n}\right]\\
+&=\frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n X_iY_i    - \frac{\sum_{i=1}^n X_i \sum_{j=1}^n Y_j}{n}\right]\\
+&=\frac{1}{n}\left(n\mu_{XY}    - \mu_{XY}+(n-1)\mu_X\mu_Y\right)\\
+&=\frac{n-1}{n}\left(\mu_{XY}-\mu_X\mu_Y\right)\\
+&=\frac{n-1}{n}\textsf{Cov}(X,Y)
+\end{align*}
+
+Hence, the estimator is biased, since $\mathbb E[\widetilde{S}_{XY}] \ne \textsf{Cov}(X,Y).$\\
+
+We can fix this by multiplying $\widetilde S_{XY}$ by $\frac{n}{n-1}$ to obtain the unbiased estimator of $\textsf{Cov}(X,Y)$:
+
+$$\widehat S_{XY}= \frac{1}{n-1}\left(\sum_{i=1}^n(X_i-\overline X_n) (Y_i-\overline Y_n)\right).$$
+
+
+
+
+
+\end{document}

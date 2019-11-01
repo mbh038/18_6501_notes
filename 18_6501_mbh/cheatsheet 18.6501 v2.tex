@@ -1,0 +1,793 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{luacode}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bbm} %for indicator 1
+\usepackage{dsfont} %for indicator 1 (the one I use)
+\usepackage{booktabs,caption,multirow,array} %for tables
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+
+\DeclareMathOperator*{\argmax}{argmax} % the * ensures that any limits etc go underneath the operator
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\cov}{\textsf{Cov}}
+\DeclareMathOperator{\var}{\textsf{Var}}
+
+%for vectors and matrices - seems to force me to not use pdflatex. Have switched to lualatex.
+\usepackage{mathtools}
+\usepackage{unicode-math}
+\setmathfont{XITS Math}
+\newcommand*{\matr}[1]{\mathbfit{#1}}
+\newcommand*{\tran}{^{\mkern-1.5mu\mathsf{T}}}
+\newcommand*{\conj}[1]{\overline{#1}}
+\newcommand*{\hermconj}{^{\mathsf{H}}}
+
+%other locally defined commands that have proven useful
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+
+% The rest of the preamble that follows  is pretty much entirely (Sep-2019) based on the LAtex Cheatsheet of William Chen.
+
+% -----------------------------------------------------------------------
+
+% To make this come out properly in landscape mode, do one of the following in terminal
+% 1.
+% pdflatex latexsheet.tex
+%
+% 2.
+%  latex latexsheet.tex
+%  dvips -P pdf  -t landscape latexsheet.dvi
+%  ps2pdf latexsheet.ps
+
+
+% If you're reading this, be prepared for confusion.  Making this was
+% a learning experience for me, and it shows.  Much of the placement
+% was hacked in; if you make it better, let me know...
+
+
+% 2008-04
+% Changed page margin code to use the geometry package. Also added code for
+% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
+% for the suggestions.
+
+% 2006-08
+% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
+
+
+
+
+% To Do:
+% \listoffigures \listoftables
+% \setcounter{secnumdepth}{0}
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+\pagestyle{empty}
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\begin{multicols*}{3}
+\raggedright
+\footnotesize
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+     \Large{\textbf{18.6501 Summary}} \\
+     Michael Hunt
+     01-11-2019
+     
+\end{center}
+
+\section{Introduction}
+These are notes taken largely from the slides of the Spring and Autumn runs of MITx 18.6501x Fundamentals of Statistics. They were made for my benefit, are incomplete and will contain errors.
+\section{Averages of Random Variables}
+
+Let $X_1, X_2,\ldots, X_n$  be i.i.d. r.v, $\mu=\mathbb {E}[{X}]$, and $\sigma^2 = \mathbb {V}[{X}]$.
+
+\subsection{Law of Large Numbers (Weak and Strong)}
+$$\overline X_n :=\dfrac{1}{n}\sum_1^n X_i \xrightarrow[n \to \infty]{\mathbb {P},\text{a.s.}}\mu$$
+
+\subsection{Central Limit Theorem (CLT)}
+
+$$\sqrt{n}\dfrac{\overline X_n - \mu}{\sigma}\xrightarrow[n \to \infty]{\text{(d)}}\mathcal{N}(0,1)$$
+Equivalently,
+$$\sqrt{n}(\overline X_n - \mu)\xrightarrow[n \to \infty]{\text{(d)}}\mathcal{N}(0,\sigma^2)$$
+
+
+\section{Inequalities}
+
+\subsection{Markov}
+For a random variable $X>0$ with mean $\mu>0$, and any number $t>0$,
+$$\displaystyle  \mathbf{P}(X\geq t)\leq \frac{\mu }{t}$$
+
+\subsection{Chebyshev}
+For a random variable $X$ with finite mean $\mu$ and variance $\sigma^2$, and for any number $t>0$,
+$$ \displaystyle \mathbf{P}\left(\left|X-\mu \right|\geq t\right)\leq \frac{\sigma ^2}{t^2}$$
+
+\subsection{Hoeffding}
+Given  $n>0$ i.i.d random variables $X_1,X_2,\ldots ,X_ n\stackrel{iid}{\sim }X$ that are almost surely \textbf{bounded}, meaning $\mathbf{P}(X \notin [a,b])=0$,
+$$\displaystyle \mathbf{P}\left(\left|\overline{X}_ n-\frac{b}{2}\right|\geq \epsilon \right) \leq 2 e^{-\frac{2n\epsilon ^2}{b^2}}\qquad \text {for all }\epsilon >0.$$
+ Unlike for the central limit theorem, here the \textbf{sample size} $n$ \textbf{does not need to be large}.
+
+\section{Three types of convergence}
+$T_n (n\geq1)$  is a sequence of random variables.  
+$T$ is a random variable that may be deterministic.
+
+\subsection{Almost surely (a.s.)}
+$$T_n\xrightarrow[n \to \infty]{\text{a.s.}}T\hspace{3mm}\mbox{ iff }\hspace{3mm}\mathbb{P}\left[\left\{\omega: T_n(\omega)\xrightarrow [n\rightarrow \infty ]{}T(\omega)\right\}\right]=1$$
+
+\subsection{Convergence in probability}
+$$T_n\xrightarrow[n \to \infty]{\mathbb{P}}T\hspace{3mm}\mbox{ iff }\hspace{3mm}\mathbb{P}\left[\left| T_n-T\right|\geq \epsilon\right]\xrightarrow[n \to \infty]{} 0,\hspace{3mm}\forall \epsilon>0$$
+
+\subsection{Convergence in distribution}
+$$T_ n\xrightarrow [n\longrightarrow \infty ]{(d)}T\hspace{3mm}\mbox{ iff }\hspace{3mm}\mathbb E[f(T_ n)]\xrightarrow [n\rightarrow \infty ]{}\mathbb E[f(T)]$$
+for all continuous and bounded functions $f$.
+
+Convergence in distribution means the convergence, at each point, of the CDFs
+
+\section{Operations on Sequences and Convergence}
+
+For a.s. and $\mathbb{P}$ only:
+Assume
+\begin{itemize}
+\item $T_ n\xrightarrow [n\to \infty ]{(a.s./ \mathbb{P})}T$
+\item $U_ n\xrightarrow [n\to \infty ]{a.s./\mathbf{P}}U$
+\end{itemize}
+Then,
+\begin{itemize}
+\item ${T_ n+U_ n\xrightarrow [n\to \infty ]{a.s./\mathbf{P}}T+U}$,
+\item ${T_ nU_ n\xrightarrow [n\to \infty ]{a.s./\mathbf{P}}TU}$,
+\item If in addition $U\neq 0$, then ${\frac{T_ n}{U_ n}\xrightarrow [n\to \infty ]{a.s./\mathbf{P}}\frac{T}{U}}$.
+\end{itemize}
+
+In general, these results \textbf{do not} apply to convergence in distribution.
+
+
+\subsection{Slutsky's Theorem}
+Let $(T_n), (U_n)$ be two sequences of random variables such that
+\begin{itemize}
+\item $T_ n\xrightarrow [n\to \infty ]{(d)}T$
+\item $U_ n\xrightarrow [n\to \infty ]{\mathbf{P}}u$
+\end{itemize}
+where $T$ is a random variable and $u$ is a given real number (deterministic limit $\mathbb P(U=u)=1$). Then,
+\begin{itemize}
+\item ${T_ n+U_ n\xrightarrow [n\to \infty ]{(d)}T+u}$,
+\item ${T_ nU_ n\xrightarrow [n\to \infty ]{(d)}Tu}$,
+\item If in addition $u\neq 0$, then ${\frac{T_ n}{U_ n}\xrightarrow [n\to \infty ]{(d)}\frac{T}{u}}$.
+\end{itemize}
+
+\subsection{Continuous Mapping Theorem}
+If $f$ is a continuous function,
+$$T_ n\xrightarrow [n\to \infty ]{\mbox{a.s.}/\mathbf{P}/(d)}T\hspace{3mm}\Rightarrow \hspace{3mm} f(T_ n)\xrightarrow [n\to \infty ]{\phantom{\mbox{a.s.}/\mathbf{P}/(d)}}f(T).$$
+
+\section{Statistical models}
+A statistical model associated to a statistical experiment is a pair:
+$${\left(E, \{ P_\theta \} _{\theta \in \Theta }\right)}$$, where
+\begin{itemize}
+\item $E$ is a sample space for $X$, i.e. a set that contains all possible outcomes of $X$,
+\item $\{ P_\theta \} _{\theta \in \Theta }$ is a family of probability distributions on $E$,
+\item $\Theta$ is a parameter set, i.e. a set consisting of some possible values of $\theta$.
+\end{itemize}
+Note that $E$ cannot itself depend on an unknown parameter.
+
+\subsection{Identifiability}
+A parameter $\theta$ is identifiable iff the map $\theta \in \Theta \mapsto \mathbb{P}_\theta$ is injective, i.e.
+$$\theta\neq\theta'\implies\mathbb{P}_\theta\neq\mathbb{P}_{\theta'}$$
+or equivalently,
+$$\mathbb{P}_\theta=\mathbb{P}_{\theta'}\implies\theta=\theta'$$
+
+\section{Estimation}
+Some definitions:
+\begin{itemize}
+\item \textit{Statistic}: Any measurable function of the sample, e.g. $\overline X_n$
+\item \textit{Estimator}: Any statistic whose expression does not depend on the parameter $\theta$.
+\item An estimator $\hat\theta_n$ of $\theta$ is respectively weakly or strongly \textit{consistent} if it converges in probability or almost surely to $\theta$
+$$\hat\theta_n\xrightarrow[n \to \infty]{\mathbb{P}\text{ resp. a.s.}}\theta \hspace{3mm} (\text{w.r.t. } \mathbb{P}_\theta)$$.
+\item An estimator $\hat\theta_n$ of $\theta$ is \textit{asymptotically normal} if 
+$$\sqrt{n}\left(\hat\theta_n-\theta\right) \xrightarrow[n \to \infty]{(d)}\mathcal{N}(0,\,\sigma^{2})$$
+The quantity $\sigma^2$ is then called the \textit{asymptotic variance} of $\hat\theta_n$.
+\end{itemize}
+
+\subsection{Bias of an estimator}
+\begin{itemize}
+\item The \textit{bias} of an estimator $\hat\theta_n$ of $\theta$ is
+$$\text{bias}(\hat\theta_n)=\E[\hat\theta_n]-\theta$$
+\item If $\text{bias}(\hat\theta)=0$ we say that $\theta$ is \textit{unbiased}.\newline
+\item In general, $\E[f(x)]\neq f(\E[x])$
+\end{itemize}
+
+
+
+\subsection{Jensen's Inequality}
+Given a convex function $f(x)$,
+$$\E[f(x)]\geq f(\E[x])$$
+Given a concave function $g(x)$,
+$$\E[g(x)]\leq g(\E[x])$$
+
+\subsection{Variance of estimators}
+\begin{align*}
+\text{var}(X)&=\E[(X-\E[X])^2]\\
+&=\E[X^2]-(\E[X])^2
+\end{align*}
+
+\subsection{Quadratic risk of estimators}
+The \textit{quadratic risk} of an estimator $\hat\theta_n$ of a true parameter $\theta$ is
+\begin{align*}
+\textit{quadratic risk} \ R&=\mathbb {E}[(\hat{\theta }_ n - \theta )^2]\\
+&=\E[(\hat\theta_n-\E[\hat\theta_n])^2]+(\E[\hat\theta_n]-\theta)^2\\
+&=\text{variance}+\text{bias}^2
+\end{align*}
+Small quadratic risk means small variance \textit{and} small bias. $R$ is the average squared distance between the estimator and the true parameter, and is typically of order $\frac{1}{n}$.
+
+\section{Confidence Intervals}
+First we take an example. This raises a problem. We then consider three (among many) possible solutions to that problem.
+
+\subsection{Example 1: Bernoulli statistical model}
+Class example: proportion of couples who kiss to the left.\newline
+Let us take the example of $R_1,\ldots ,R_ n\stackrel{iid}{\sim } \textsf{Ber}(p)$ for some unknown parameter $p$. We estimate $p$ using the estimator $\hat{p}=\overline{R}_ n=\frac{1}{n}\sum _{i=1}^{n} R_ i$.\newline
+ We want the probability of the distance between this estimator and the true parameter $p$ be more than $x$ with low probability $\alpha$, i.e.:
+$$\mathbb P(|\bar{R}_n-p|\ge x)$$
+Normalise the variable:
+$$\mathbb P\left(\frac{\sqrt{n} |\bar{R}_n-p|}{\sqrt{p(1-p)}}\ge \frac{\sqrt{n}x}{\sqrt{p(1-p)}}\right)=\alpha$$
+But, by the CLT,  the random variable converges in distribution to a standard normal, so
+$$\mathbb P\left(|Z|\ge \frac{\sqrt{n}x}{\sqrt{p(1-p)}}\right)=\alpha$$
+Hence
+$$2\times \mathbb P\left(Z\ge \frac{\sqrt{n}x}{\sqrt{p(1-p)}}\right)=\alpha$$
+and so, taking the complement:
+$$2\times \left[1-\mathbb P\left(Z< \frac{\sqrt{n}x}{\sqrt{p(1-p)}}\right) \right]=\alpha$$
+using the CDF:
+$$2\times\left[1-\Phi\left(\frac{\sqrt{n}x}{\sqrt{p(1-p)}}\right) \right]=\alpha$$
+This is equivalent to:
+$$\Phi\left(\frac{\sqrt{n}x}{\sqrt{p(1-p)}}\right) =1-\alpha/2$$
+Inverting the CDF:
+$$x=\frac{\sqrt{p(1-p)}\Phi^{-1}(1-\alpha/2)}{\sqrt{n}}$$
+or, rewriting the inverse as
+$$\Phi^{-1}(1-\alpha/2):=q_{\alpha/2}$$,
+we get
+$$x=\frac{\sqrt{p(1-p)}q_{\alpha/2}}{\sqrt{n}}$$
+So in the limit of large $n$, the probability that the distance between the estimator $x$ and the true parameter is $\alpha$.
+Finally, we can write an asymptotic  'confidence interval as:
+\begin{align*}
+\lim _{n\to \infty } \mathbf{P}&\left(\left[\overline{R}_ n-\frac{q_{\alpha /2}\sqrt{p(1-p)}}{\sqrt n},\overline{R}_ n+\frac{q_{\alpha /2}\sqrt{p(1-p)}}{\sqrt n}\right]\ni p\right)\\
+ &= 1-\alpha
+\end{align*}
+But this is \emph{not} a confidence interval because it depends on the true parameter $p$, which we do not know.
+
+\subsection{Some confidence interval solutions}
+Many approaches possible. Here are three:
+\subsubsection{Solution 1: Conservative bound}
+No matter what the value of $p$,
+$$p(1-p)\leq\frac{1}{4}$$
+Hence, roughly with probability at least $1-\alpha$,
+$$\overline R_n\in\left[p-\frac{q_{\alpha/2}}{2\sqrt{n}},p+\frac{q_{\alpha/2}}{2\sqrt{n}}\right]$$
+so we get the asymptotic confidence interval
+$$\mathcal{I}_\text{conserv}=\left[\overline R_n-\frac{q_{\alpha/2}}{2\sqrt{n}},\overline R_n+\frac{q_{\alpha/2}}{2\sqrt{n}}\right]$$
+so
+$$\lim_{n\to \infty}\mathbb P (\mathcal{I}_\text{conserv}\in p)\ge 1-\alpha$$
+Note: this technique does not work for an exponential statistical model, for which there is no a priori way to bound the variance.
+
+\subsubsection{Solution 2: Solve the quadratic equation for p}
+We have two inequalities in $p$
+$$\overline{R}_ n-\frac{q_{\alpha /2}\sqrt{p(1-p)}}{\sqrt n}\leq p \leq \overline{R}_ n+\frac{q_{\alpha /2}\sqrt{p(1-p)}}{\sqrt n}$$
+Hence
+$$(p-\overline R_n)^2 \leq \frac{q^2_{\alpha /2}p(1-p)}{n}$$
+The roots $p_1, p_2$ of the quadratic
+$$\left(1+\frac{q^2_{\alpha /2}}{n}\right)p^2-\left(2\overline R_n+\frac{q^2_{\alpha /2}}{n}\right)p+\overline R^2_n=0$$
+give us a confidence interval $\mathcal{I}_\text{solve}=[p_1,p_2]$ such that
+$$\lim_{n\to \infty}\mathbb P (\mathcal{I}_\text{solve}\in p)= 1-\alpha$$
+
+\subsubsection{Solution 3: Plug-in}
+By LLN,  $\hat p=\overline R_n\xrightarrow [n\to \infty ]{\mathbf{P,\text a.s.}}p$\newline
+Also,
+$$\sqrt{n}\frac{\overline R_n-p}{\sqrt{\hat p(1-\hat p)}}=\sqrt{n}\frac{\overline R_n-p}{\sqrt{p(1-p)}}\frac{\sqrt{p(1-p)}}{\sqrt{\hat p(1-\hat p)}}$$
+First term converges in distribution to $\mathcal{N}(0,1)$, second term, by LLN, converges almost surely to 1.
+So by Slutsky we also have
+$$\sqrt{n}\frac{\overline R_n-p}{\sqrt{\hat p(1-\hat p)}}\xrightarrow[n\to\infty]{(d)}\mathcal{N}(0,1)$$
+which gives a new confidence interval
+$$\mathcal{I}_\text{plug-in}=\left[\overline{R}_ n-\frac{q_{\alpha /2}\sqrt{\hat p(1-\hat p)}}{\sqrt n},\overline{R}_ n+\frac{q_{\alpha /2}\sqrt{\hat p(1-\hat p)}}{\sqrt n}\right]$$
+such that
+$$\lim_{n\to \infty}\mathbb P (\mathcal{I}_\text{plug-n}\in p)= 1-\alpha$$
+
+\subsection{Example 2: Exponential statistical model}
+Class example: Inter-arrival times of a subway train.\newline
+In this example we do not directly observe an estimator of the parameter of interest $\lambda$, but one which is a function of it. Here we see how to deal with that.\newline
+Assumptions:
+\begin{itemize}
+\item Mutually independent arrival times 
+\item Exponential random variables with shared parameter $\lambda$
+\end{itemize}
+Hence we have  $T_1,\ldots ,T_ n\stackrel{iid}{\sim } \textsf{Exp}(\lambda)$
+
+We want to estimate $\lambda$, based on the observed train inter-arrival times.
+\begin{itemize}
+\item Density of $T_1$: $f(t)=\lambda e^{-\lambda t}\hspace{3mm}\forall t\ge 0$
+\item $\E[T_1]=\frac{1}{\lambda}$
+\item By LLNs, Estimator for $\frac{1}{\lambda}$ is $\overline T_n:=\frac{1}{n}\sum^n_i T_i\xrightarrow[n\to\infty]{\text{a.s.}/\mathbb{P}}\frac{1}{\lambda}$
+\item Thus, by CMT, the estimator for $\lambda$ is $\hat\lambda:=\frac{1}{\overline T_n}\xrightarrow[n\to\infty]{\text{a.s.}/\mathbb{P}}\lambda$
+Note that $\hat\lambda$ is therefore consistent. However it is biased, since $\frac{1}{\lambda}$ is convex, so by Jensen's inequality, $\E\left[\frac{1}{\overline T_n}\right]\ge\frac{1}{\E[\overline T_n]}=\lambda$
+\item So by CLT, $\sqrt{n}\left(\overline T_n-\frac{1}{\lambda}\right)\xrightarrow[n\to\infty]{(d)}\mathcal{N}\left(0,\frac{1}{\lambda^2}\right)$
+\end{itemize}
+
+But, how does the CLT transfer to $\hat\lambda$? How do we find an asymptotic confidence interval for $\lambda$?
+
+\subsection{Delta Method}
+Let $(X_n)_{n\ge1}$ be a sequence of r.v. that satisfies
+$$\sqrt{n}(X_n-\theta)\xrightarrow[n\to\infty]{(d)}\mathcal{N}(0,\sigma^2)$$
+for some $\theta \in \mathbb{R}$ and $\sigma^2>0$. The sequence $(X_n)_{n\ge1}$ is said to be \emph{asymptotically normal} around $\theta$.
+Let $g:\mathbb{R}\mapsto\mathbb{R}$ be continuously differentiable at the point $\theta$.\newline
+Then
+\begin{itemize}
+\item $g\left((X_n)_{n\ge1}\right)$ is also asymptotically normal around $g(\theta).$
+\item $\sqrt{n}\left(g(X_n)-g(\theta)\right)\xrightarrow[n\to\infty]{(d)}\mathcal{N}\left(0,(g^\prime(\theta))^2\sigma^2\right).$
+\end{itemize}
+
+\section{Hypothesis Testing}
+Consider a sample $X_1,\dots,X_n$ of i.i.d random variables and a statistical model $(E,(\mathbb{P}_\theta)_{\theta\in\Theta}).$\newline
+Let $\Theta_0$ and $\Theta_1$ be disjoint subsets of $\theta$ (they do not necessarily have to partition $\Theta.$)
+
+\begin{align*}
+  &\text{Consider the two hypotheses:}\begin{cases}
+    H_0: \theta\in\Theta_0.\\
+    H_1: \theta\in\Theta_1.
+  \end{cases}
+\end{align*}
+
+$H_0$ is the null hypothesis, $H_1$ is the alternate hypothesis.
+If we believe that the true $\theta$ is in either $\Theta_0$ or $\Theta_1$, we may want to test $H_0$ against $H_1$.
+We want to decide whether to reject $H_0$ - i.e. look for evidence against it in the data.
+
+\subsection{Asymmetry in the Hypotheses}
+$H_0$ and $H_1$ do not play a symmetric role. The data is only used to try to disprove $H_1$.
+Lack of evidence does not mean that $H_0$ is true.
+
+\subsection{A test}
+A \emph{test} is a statistic $\psi\in\{0,1\}$ such that\\
+$\psi=0\implies H_0$ is not rejected,\\
+$\psi=1\implies H_0$ \emph{is} rejected.\\
+Coin example: $H_0: p=0.5, H_1: p\neq 0.5$\\
+$\psi=\mathds{1}\left\{\sqrt{n}\frac{\left|\overline X_n-0.5\right|}{\sqrt{0.5(1-0.5)}}>0\right\}\text{ for some }C>0$\\
+How to choose the threshold $C$?\\
+A test is fully defined by its rejection region.
+
+
+\subsection{Errors}
+\begin{itemize}
+\item \emph{Rejection Region of a test} $\psi$ (a set)
+$$R_\psi =\left\{x\in E^n:\psi =1\right\}.$$
+So $\psi(x)=\mathds{1}\left\{x\in R_\psi\right\}.$
+\item \emph{Type 1 error of a test $\psi$: }Rejecting $H_0$ when it is actually true.
+\begin{align*}
+\alpha_\psi : \Theta_0&\mapsto \mathbb{R}\hspace{2mm} \text{(or [0,1])}\\
+\theta&\mapsto\mathbb{P}_\theta[\psi=1]
+\end{align*}
+\item \emph{Type 2 error of a test $\psi$: }Not rejecting $H_0$ when $H_1$ is actually true.
+\begin{align*}
+\beta_\psi : \Theta_1&\mapsto \mathbb{R}\hspace{2mm} \text{(or [0,1])}\\
+\theta&\mapsto\mathbb{P}_\theta[\psi=0]
+\end{align*}
+\item \emph{Power of a test $\psi$:}
+$$\pi_\psi=\inf_{\theta\in \Theta_1} \left(1-\beta_\psi(\theta)\right)$$
+\end{itemize}
+
+\subsection{Level, test statistic and rejection region}
+A test $\psi$ has \emph{level} $\alpha$ if
+$$\alpha_\psi(\theta)\leq \alpha,\hspace{3mm} \forall\theta\in\Theta_0.$$
+A test $\psi$ has \emph{asymptotic level} $\alpha$ if
+$$\lim_{n\to\infty}\alpha_{\psi_n}(\theta)\leq \alpha,\hspace{3mm} \forall\theta\in\Theta_0.$$
+In general, a \emph{test} has the form
+$$\psi=\mathds{1}\left\{T_n>c\right\},$$
+for some statistic $T_n$ and threshold $c\in\mathbb{R}.$\\
+$T_n$ is called the \emph{Test Statistic}.\\
+ The \emph{rejection region} is $R_\psi=\left\{T_n>c\right\}.$
+
+\subsection{p-value}
+The asymptotic \emph{p-value} of a test $\psi_\alpha$ is the smallest asymptotic level $\alpha$ at which $\psi_\alpha$ rejects $H_0$. It is random and depends on the sample.
+
+\section{Methods for estimation}
+
+\subsection{Total Variation Distance}
+Let $(E,{(\mathbb{P}_\theta)}_{\theta\in\Theta})$ be a statistical model associated with a sample of i.i.d. r.v. $X_1, \dots , X_n$. Assume that there exists $\theta^\star\in\Theta$ such that $X_1\sim \mathbb{P}(\theta^\star): \theta^\star $ is the true parameter.
+\textbf{Statistician's Goal}: Given $X_1,\dots,X_n$, find an estimator $\widehat\theta=\widehat\theta(X_1,\dots,X_n)$ such that $\mathbb{P}_{\widehat\theta}$ is close to $\mathbb{P}_{\theta^\star}$ for the true parameter $\theta^\star.$\newline
+This means that $|\mathbb{P}_{\widehat\theta}(A) - \mathbb{P}_{\theta^\star}(A)|$ is \textbf{small} for $A\in E.$\newline
+The \emph{total variation distance} between two probability measures $\mathbb{P}_\theta$ and $\mathbb{P}_\theta^\prime$ is
+$$\text{TV}(\mathbb{P}_\theta,\mathbb{P}_\theta^\prime)=\max_{A\in E}|\mathbb{P}_{\theta}(A) - \mathbb{P}_{\theta^\prime}(A)|$$
+
+\subsubsection{Total variation distance between discrete measures}
+Let $\mathbf{P}$ and $\mathbf{Q}$ be probability measures with a \emph{discrete} sample space $E$ and probability mass functions $f(x)$ and $g(x)$. Then, the total variation distance between $\mathbf{P}$ and $\mathbf{Q}$ is 
+\begin{align*}
+\text {TV}(\mathbf{P}, \mathbf{Q}) &= {\max _{A \subset E}}| \mathbf{P}(A) - \mathbf{Q}(A) |,\\
+&=\frac{1}{2} \, \sum _{x \in E} |f(x) - g(x)|.
+\end{align*}
+
+\subsubsection{Total variation distance between continuous measures}
+Let $\mathbf{P}$ and $\mathbf{Q}$ be probability measures with a \emph{continuous} sample space $E$ and probability density functions $f(x)$ and $g(x)$. Then, the total variation distance between $\mathbf{P}$ and $\mathbf{Q}$ is 
+\begin{align*}
+\text {TV}(\mathbf{P}, \mathbf{Q}) &= {\max _{A \subset E}}| \mathbf{P}(A) - \mathbf{Q}(A) |,\\
+&=\frac{1}{2} \, \int_{x \in E} |f(x) - g(x)|dx.
+\end{align*}
+
+
+
+\subsubsection{Properties of Total Variation Distance}
+Let $d$ be a function that takes two probability measures $\mathbf{P}$ and $\mathbf{Q}$ and maps them to a real number $d(\mathbf{P},\mathbf{Q})$. Then $d$ is a \textbf{distance} on probability measures if the following four axioms hold. (Here, $\mathbf{P}$, $\mathbf{Q}$ and $\mathbf{V}$ are all probability measures.) 
+\begin{itemize}
+\item $d(\mathbf{P}, \mathbf{Q}) = d(\mathbf{Q}, \mathbf{P})$ (symmetric)
+\item $d(\mathbf{P}, \mathbf{Q}) \geq 0$ (non-negative)
+\item $d(\mathbf{P}, \mathbf{Q}) = 0 \iff \mathbf{P}= \mathbf{Q}$ (definite)
+\item $d(\mathbf{P}, \mathbf{Q}) \leq d(\mathbf{P}, \mathbf{V}) + d(\mathbf{V}, \mathbf{Q})$ (triangle inequality).
+\end{itemize}
+These imply that the TV is a \emph{distance} between probability measures.
+\subsubsection{Limitations of Total Variation Distance}
+If two probability measures $\mathbf{P}$ and $\mathbf{Q}$ have disjoint support then $\text{TV}(\mathbf{P},\mathbf{Q})=1$. In particular, if  $\mathbf{P}$ is continuous (eg $\mathcal{N}(0,1)$) and $\mathbf{Q}$ is discrete (eg $\text{Ber}(p)$), then TV=1, even if $\mathbf{Q}$ might become equal to $\mathbf{P}$ as $n\xrightarrow[]{}\infty$. Hence, while TV \emph{is} a distance, it can be trivial since it does not capture proximity. Also, it is generally hard to compute.
+
+\subsection{Kullback-Leibler (KL) Divergence}
+Let $\mathbf{P}$ and $\mathbf{Q}$ be discrete probability distributions with pmfs $p$ and $q$ respectively. Let's also assume $\mathbf{P}$ and $\mathbf{Q}$ have a common sample space $E$. Then the \textbf{KL divergence} (also known as \textbf{relative entropy}) between $\mathbf{P}$ and $\mathbf{Q}$ is defined by 
+$$\text {KL}(\mathbf{P}, \mathbf{Q}) = \sum _{x \in E} p(x) \ln \left( \frac{p(x)}{q(x)} \right),$$
+where the sum is only over the support of $\mathbf{P}$. \newline
+If $\mathbf{P}$ and $\mathbf{Q}$ are continuous probability distributions with pdfs $p$ and $q$ on a common sample space $E$, then
+$$\text {KL}(\mathbf{P}, \mathbf{Q}) = \int_{x \in E} p(x) \ln \left( \frac{p(x)}{q(x)} \right) dx,$$
+where the integral is again only over the support of $\mathbf{P}$. 
+
+\subsubsection{Properties of KL divergence}
+$\text {KL}(\mathbf{P}, \mathbf{Q})$ is not a distance, but a divergence.
+\begin{itemize}
+\item  $ 0 \leq \text {KL}(\mathbf{P}, \mathbf{Q}) \leq 1$
+\item $\text {KL}(\mathbf{P}, \mathbf{Q}) \geq 0$ (non-negative)
+\item $\text {KL}(\mathbf{P}, \mathbf{Q})=0$ only if $ \mathbf{P}$ and $\mathbf{Q}$ are the same distribution (\emph{definite} - this is important).
+\item Easier to compute than TV distance.
+\item Can be written as an expectation, so we can estimate the KL by taking averages over i.i.d. samples.
+\end{itemize}
+but,
+\begin{itemize}
+\item $\text {KL}(\mathbf{P}, \mathbf{Q}) \neq \text {KL}(\mathbf{Q}, \mathbf{P})$ (\emph{not} symmetric)
+\item $\text {KL}(\mathbf{P}, \mathbf{Q}) \not\leq \text {KL}(\mathbf{P}, \mathbf{V}) + \text {KL}(\mathbf{V}, \mathbf{Q})$ (triangle inequality \emph{not} satisfied).
+\end{itemize}
+We can use maximum likelihood estimation to find an estimator for the KL divergence between two distributions.
+
+\section{Maximum Likelihood Estimation}
+\subsubsection{Estimating the KL divergence}
+\begin{align*}
+\textsf {KL}(\mathbb{P}_{\theta^\star,} \mathbb{P}_\theta) &= \sum _{x \in E} p_{\theta^\star}(x) \log \left( \frac{p_{\theta^\star}(x)}{p_\theta(x)} \right),\\
+&=\E_{\theta^\star}\left[\log\left( \frac{{p_{\theta^\star}(X)}}{{p_\theta(X)}}\right)\right]\\
+&=\E_{\theta^\star}\left[\log p_{\theta^\star}(X)\right]-\E_{\theta^\star}\left[\log p_{\theta}(X)\right]\\
+&=\text{`constant'}-\E_{\theta^\star}\left[\log p_{\theta}(X)\right]
+\end{align*}
+which we can estimate since:
+$$\E_{\theta^\star}\left[h(X)\right]\rightsquigarrow\frac{1}{n}\sum_{i=1}^n{h(X_i)}\hspace{3mm}\text{by LLN}.$$
+so that a consistent estimator for the KL divergence is
+$$\widehat{\textsf {KL}}(\mathbb{P}_{\theta^\star,} \mathbb{P}_\theta)=\text{`constant'}-\frac{1}{n}\sum_{i=1}^n{\log p_\theta(X_i)}$$
+
+\subsubsection{Maximum likelihood principle}
+\begin{align*}
+\min_{\theta\in\Theta}\widehat{\textsf {KL}}(\mathbb{P}_{\theta^\star,} \mathbb{P}_\theta)&\Leftrightarrow\min_{\theta\in\Theta}\left( -\frac{1}{n}\sum_{i=1}^n{\log p_\theta(X_i)}\right)\\
+&\Leftrightarrow\max_{\theta\in\Theta}\frac{1}{n}\sum_{i=1}^n{\log p_\theta(X_i)}\\
+&\Leftrightarrow\max_{\theta\in\Theta}\log\left[\prod_{i=1}^n{p_\theta(X_i)}\right]\\
+&\Leftrightarrow\max_{\theta\in\Theta}\prod_{i=1}^n{p_\theta(X_i)}
+\end{align*}
+($\Leftrightarrow$ means `is the same as saying'.)\\
+All we care about the KL is that the argument that maximises -KL is $\theta^*.$ It is instrumental in getting the maximum Fisher Information i.e.  the optimal (which means, minimal) asymptotic variance.
+
+
+\subsubsection{Maximum Likelihood Estimator (1)}
+Minimising the estimator for the KL is the same as maximising the likelihood.
+The quantity
+$$\hat{\theta }_ n := \text {maximizer of} \,  \,  \prod _{i = 1}^ n p_\theta (X_ i)$$
+is called the \textbf{maximum likelihood estimator}. This is the same as
+$$\hat{\theta }_ n := \text {minimizer of } \,  \,  - \displaystyle \frac{1}{n} \sum _{i = 1}^ n \ln (p_\theta (X_ i)).$$
+Under certain technical conditions, the maximum likelihood estimator is guaranteed to (weakly) converge to the true parameter $\theta^\star.$
+
+
+
+\subsection{Likelihood: Discrete Case}
+Let $\left(E, \{ P_\theta \}_{\theta \in \Theta }\right)$ be a statistical model associated with a sample of i.i.d. r.v. $X_1, \dots , X_n$. Assume that $E$ is discrete (i.e., finite or countable).\\
+The \emph{likelihood} of the model is the map $L_n$ defined as 
+\begin{align*}
+L_n:\hspace{6mm}E^n\times\Theta\hspace{3mm}&\rightarrow\mathbb{R}\\
+(x_1,\dots,x_n,\theta)&\mapsto\mathbb{P}_\theta[X_1,\dots,X_n]\\
+&=\prod_{i=1}^n\mathbb{P}_\theta[X_i=x_i]\hspace{3mm}\text{(since i.i.d.)}.
+\end{align*}
+
+\subsubsection{Bernouilli}
+$$L(x_1\dots x_n;p)=p^{\sum_{i=1}^nx_i}(1-p)^{n-\sum_{i=1}^nx_i}$$
+So we note here that the likelihood function in the case of one variable is just the pmf:
+$$L_1(X,\theta)=L(x_1,p)=f_\theta(x_1)=p^{x_1}(1-p)^{n-x_1}.$$
+\subsubsection{Poisson}
+$$L(x_1\dots x_n;\lambda)=\dfrac{\lambda^{\sum_{i=1}^n {x_i}}}{x_1\!\dots x_n!}e^{-n\lambda}$$
+
+
+\subsection{Likelihood: Continuous Case}
+Let $\left(E, \{ P_\theta \}_{\theta \in \Theta }\right)$ be a statistical model associated with a sample of i.i.d. r.v. $X_1, \dots , X_n$. Assume that all the $\mathbb{P}_\theta$ have density $f_\theta.$\\
+The \emph{likelihood} of the model is the map $L_n$ defined as 
+\begin{align*}
+L_n:\hspace{6mm}E^n\times\Theta\hspace{3mm}&\rightarrow\mathbb{R}\\
+(x_1,\dots,x_n,\theta)&\mapsto\prod_{i=1}^n f_\theta(x_i).
+\end{align*}
+
+\subsubsection{Gaussian}
+$$L(x_1\dots x_n;\mu,\sigma^2)=\dfrac{1}{\left(\sqrt{2\pi}\sigma\right)^n}\exp{\left(-\dfrac{1}{2\sigma^2}\sum_{i=1}^n (x_i-\mu)^2 \right)}$$
+\subsubsection{Exponential}
+$$L(x_1\dots x_n;\lambda)=\lambda^n\exp{\left(-\lambda\sum_{i=1}^n x_i\right)}\hspace{3mm}\mathds{1} \min_i (x_i > 0)$$
+..but we could leave the indicator out here since it does not depend on the parameter $\lambda$. In a well specified model, all the $x_i$ \emph{must} be greater than zero.
+\subsubsection{Uniform}
+$$L(x_1\dots x_n;b)=\dfrac{1}{b^n} \hspace{3mm}\mathds{1} \max_i (x_i \leq b)$$
+(note how, in the last two examples, a product of indicators is expressed as a single indicator, involving $\min()$ or $\max()$.
+
+\subsubsection{Maximum Likelihood Estimator (2)}
+
+Let $X_1, \dots , X_n$ be an i.i.d. sample associated with a statistical model $\left(E, \{ P_\theta \}_{\theta \in \Theta }\right)$ and let $L$ be the corresponding likelihood. Then, we define the \emph{maximum likelihood estimator} of $\theta$ as
+$$\widehat\theta^{MLE}_n=\argmax_{\theta\in\Theta} L(X_1, \dots , X_n;\theta),$$
+provided it exists. In practice, we use the \textbf{log-likelihood estimator}:
+$$\widehat\theta^{MLE}_n=\argmax_{\theta\in\Theta} \log L(X_1, \dots , X_n;\theta),$$
+which gives the same result.
+
+\subsection{Maximizing/minimizing functions}
+Maximising a function is the same as minimising the negative of that function:
+$$\min_{\theta\in\Theta}-h(\theta)\Leftrightarrow\max_{\theta\in\Theta}h(\theta).$$
+Generally difficult to do for arbitrary functions.
+
+\subsubsection{Concave (or convex) functions}
+A twice differentiable function $h : \Theta \subset \mathbb{R}\mapsto\mathbb{R}$ is said to be \emph{concave} if its second derivative satisfies
+$$h^\dprime(\theta)\leq 0,\hspace{3mm}\forall\theta\in\Theta$$
+and \emph{strictly} concave if the inequality is strict: $h^\dprime(\theta)< 0.$\\
+Convex and strictly convex are for the reverse.
+
+\subsubsection{Multivariate concave functions}
+For a multivariate function $h : \Theta \subset \mathbb{R}^d\mapsto\mathbb{R}$
+where $d\geq 2$, we define the
+\begin{itemize}
+\item \emph{gradient} vector $\nabla h(\theta)=
+\begin{pmatrix}
+\dfrac{\partial h}{\partial \theta_1}(\theta)\\
+\vdots\\
+\dfrac{\partial h}{\partial \theta_d}(\theta)
+\end{pmatrix}
+\in\mathbb{R}^d$
+\item \emph{Hessian} matrix $\matr{H} h(\theta) \in\mathbb{R}^{d\times d}$ where\\
+\vspace{1mm}
+$\matr{H} h(\theta)=
+\begin{pmatrix}
+\dfrac{\partial^2 h}{\partial \theta_1 \partial \theta_1}(\theta), & \cdots, & \dfrac{\partial^2 h}{\partial \theta_1 \partial \theta_d}(\theta)\\
+\vdots & \ddots & \vdots\\
+\dfrac{\partial^2 h}{\partial \theta_d \partial \theta_1}(\theta), & \cdots, & \dfrac{\partial^2 h}{\partial \theta_d \partial \theta_d}(\theta)\\
+\end{pmatrix}
+$
+\end{itemize}
+\vspace{1mm}
+When $\matr{H}\text{\,is \emph{negative semi-definite}}:$\\
+$\matr{x}\tran \matr{H} h(\theta) \matr{x}\leq 0 \Leftrightarrow h$ is concave,$\quad\forall \matr{x} \in \mathbb{R}^d,\theta\in\Theta$.\\
+\vspace{1mm}
+When $\matr{H}\text{\,is \emph{negative definite}}:$\\
+$\matr{x}\tran \matr{H} h(\theta) \matr{x} < 0 \Leftrightarrow h$ is \emph{strictly} concave,$\quad\forall \matr{x} \in \mathbb{R}^d,\theta\in\Theta,\matr{x}\neq 0.$
+
+\subsubsection{Optimality Conditions}
+If strictly concave functions have a maximum, it is the \textbf{unique} solution to:
+$$h^\prime(\theta)=0\qquad h : \Theta \subset \mathbb{R}\mapsto\mathbb{R}$$
+or
+$$\nabla h(\theta)=0\qquad h : \Theta \subset \mathbb{R}^d\mapsto\mathbb{R}$$
+
+\subsubsection{Examples of Maximum Likelihood Estimators}
+
+% Requires the booktabs if the memoir class is not being used
+%\begin{table}
+\begin{center}
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   {\renewcommand{\arraystretch}{2}%
+   \begin{tabular}{@{} lcc @{}} % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      For   & the MLE  & is \\
+      \midrule
+      Uniform model& $\widehat{\theta _ n}^{MLE}$ & $\max_{1 \leq i \leq n} X_ i.$ \\ 
+%      \hline
+      Bernoulli trials& $\widehat{p_ n}^{MLE}$ & $\overline X_n$ \\
+%      \hline
+      Poisson model& $\widehat{\lambda_ n}^{MLE}$  & $\overline X_n$ \\
+%      \hline   
+      \multirow{2}{*}{Gaussian model} & \multirow{2}{*}{$(\widehat{\mu_ n},\widehat{\sigma_ n}^2)$} & $(\overline X_n,\widehat{S_n})$\\
+          &  & where $\widehat{S_n}=\frac{1}{n}\sum_{i=1}^n (X_i-\overline X_n)^2.$ \\
+      \bottomrule
+      \noalign{\smallskip}
+   \end{tabular}}
+\end{center}
+%   \caption{Remember, \emph{never} use vertical lines in tables.}
+%   \label{tab:booktabs}
+%\end{table}
+
+\subsubsection{Consistency of maximum likelihood estimator}
+Under mild regularity conditions we have
+$$\widehat\theta_n^{MLE}\xrightarrow[n\to\infty]{\mathbb{P}}\theta^\star$$
+This is because, for all $\theta\in\Theta,$
+$$\frac{1}{n}\log L(X_1,\dots,X_n;\theta)\xrightarrow[n\to\infty]{P}\textsf{'constant'}-\textsf{KL}(\mathbb{P}_\theta^\star,\mathbb{P}_\theta).$$
+The minimiser of the RHS is $\theta^\star$ if the parameter is \emph{identifiable}.\\
+
+To determine the asymptotic normality of the MLE (or otherwise) we must consider covariance.
+
+\subsection{Covariance}
+\begin{align*}
+\cov(X,Y)&=\E\left[ (X-\E[X])(Y-\E[Y])\right]\\
+&=\E[X\cdot Y]-\E[X]\cdot \E[Y]\\
+&=\E\left[X\cdot (Y-\E[Y])\right]\\
+&=\E\left[ (X-\E[X])\cdot Y\right]
+\end{align*}
+
+Note it is only necessary to centre one of the variables.
+
+\subsubsection{Properties of Covariance}
+\begin{itemize}
+\item $\cov(X,X)=\var(X)$
+\item $\cov(X,Y)=\cov(Y,X)$
+\item If $X$, $Y$ are independent, then $\cov(X,Y)=0$ - but \textbf{the converse is not true in general.}. The exception is when ${(X,Y)}\tran$ is a Gaussian vector.
+\item if $\var(X)=\var(Y)$ then $\cov(X+Y,X-Y)=0.$
+\end{itemize}
+
+\subsubsection{Covariance Matrix}
+The covariance matrix of a random vector $X=(X_1,\dots,X_n)\tran \in \mathbb{R}^d$ is given by
+$$\Sigma=\cov(X)=\E\left[(X-\E[X])(X-\E[X])\tran\right]\quad\in\mathbb{R}^{d\times d}$$
+i.e. by the outer product of $(X-\E[X])$ with itself.\\
+\begin{itemize}
+\item \textbf{Every rank-1 matrix can be written as an outer product. Conversely, every outer product is a rank-1 matrix}.
+\item However, a covariance matrix is not necessarily rank-1, since although written as an outer product, it is an outer product of random variables..
+\item Every covariance matrix is positive definite, every positive definite matrix is a covariance matrix.
+\item It's eigenvalues are positive and along the diagonal.
+\end{itemize}
+$$\Sigma_{ij}=\E\left[\left(X^{(i)}-\E\left[X^{(i)}\right]\right)\left(X^{(j)}-\E\left[X^{(j)}\right]\right)\tran\right]=\cov\left(X^{(i)},X^{(j)}\right).$$
+on the diagonal,
+$$\Sigma_{ii}=\cov\left(X^{(i)},X^{(i)}\right)=\var\left(X^{(i)}\right).$$
+If $\matr{X} \in \mathbb{R}^d$, and $\matr{A}$ and $\matr{B}$ are matrices, then
+$$\textsf{Cov}(\matr AX+\matr B)=\cov(\matr AX)=\matr A\textsf{Cov}(X)\matr A\tran = \matr A\Sigma \matr A\tran$$
+
+\subsubsection{The Multivariate Gaussian Distribution}
+\begin{itemize}
+\item A vector $X\in\mathbb{R}^d$ is a Gaussian vector if $\alpha\tran X$ is also a Gaussian vector for any $\alpha\in\mathbb{R}^d,\alpha\neq 0$.\\
+\item A Gaussian vector $X\in\mathbb{R}^d$ is completely determined by its expected value $\mathbb{E}[X]=\mu\in\mathbb{R}^d$ and covariance matrix $\Sigma$.
+\item We write $X\sim\mathcal{N}_d(\mu,\Sigma).$
+\item pdf: $f(x)=\dfrac{1}{\sqrt{(2\pi)^{d/2}\det (\Sigma)}}\exp\left(-\frac{1}{2} (x-\mu)\tran \Sigma^{-1}(x-\mu) \right)$ where $ x=(x^{(1)},\dots,x^{d}).$
+\end{itemize}
+
+\subsubsection{The Multivariate CLT}
+Let $X_1,\dots,X_n\in\mathbb{R}^d$ be independent copies of a random vector $X$ such that $\mathbb{E}[X]=\mu,\cov(X)=\Sigma$.
+\begin{align*}
+\sqrt{n}(\overline X_n-\mu)&\xrightarrow[n\to\infty]{(d)}\mathcal{N}_d(0,\Sigma)\\
+\sqrt{n}\Sigma^{-\frac{1}{2}}(\overline X_n-\mu)&\xrightarrow[n\to\infty]{(d)}\mathcal{N}_d(0,\textsf{I}_d)
+\end{align*}
+
+\subsubsection{The Multivariate Delta Method}
+Let $\left(T_n\right)_{n\geq1}$ be a sequence of random vectors in $\mathbb{R}^d$ such that
+$$\sqrt{n}(T_n-\theta)\xrightarrow[n\to\infty]{(d)}\mathcal{N}_d(0,\Sigma),$$
+for some $\theta\in\mathbb{R}^d$ and some variance $\Sigma\in\mathbb{R}^{d\times d}$.\\
+Let $g: \mathbb{R}^d\to\mathbb{R}^k (k\geq 1)$ be continuously differentiable at $\theta.$\\
+Then,
+$$\sqrt{n}\left(g(T_n)-g(\theta)\right)\xrightarrow[n\to\infty]{(d)}\mathcal{N}_d\left(0,\nabla g(\theta)\tran \dot \Sigma \dot \nabla g(\theta)\right),$$
+where $ \nabla g(\theta)=\dfrac{\partial g}{\partial \theta}(\theta)=\left(\dfrac{\partial g_j}{\partial \theta_i}\right)_{\substack{1\leq i\leq d\\1\leq j\leq k}}\in\mathbb{R}^{d\times k}$
+
+\subsubsection{Fisher Information}
+Define the log-likelihood for one observation as 
+$$\ell(\theta)=\log L_1(\matr{X},\theta),\quad \theta\in\Theta\subset \mathbb{R}^d$$
+Note that $L_1(\matr{X},\theta)$ is a pdf or pmf. - and so integrates/sums to 1.\\
+Assume that $\ell$ is twice differentiable, then under some regularity conditions, the \emph{Fisher Information} is defined as:
+\begin{align*}
+\mathcal{I}(\theta)&=\cov\left( \nabla \ell(\theta) \right)\\
+&=\E\left[ \nabla \ell(\theta) \nabla \ell(\theta)\tran \right]-\E\left[ \nabla\ell(\theta)\right] \E\left[\nabla \ell(\theta)\tran \right]\\
+&=-\E\left[\matr{H}\ell(\theta)\right]
+\end{align*}
+if $\Theta \subset \mathbb{R}$ we get
+$$\mathcal{I}(\theta)=\var\left[\ell^\prime (\theta)\right]=-\E\left[\ell^\dprime(\theta)\right]$$
+It is usually easier to compute the second derivative than to find the variance of the first derivative.\\
+\vspace{1mm}
+\textbf{Remark}: The Fisher information tells how curved (on average) the log-likehood $\ln L_ n(x_1, \ldots , x_ n, \theta )$ for several samples $X_1 = x_1, \ldots , X_ n = x_ n$ is. In particular, $\mathcal{I}(\theta ^*)$ tells how curved (on average) the log-likelihood is near the true parameter. As a rule of thumb, if the Fisher information $\mathcal{I}(\theta ^*)$ is large, then we expect the MLE to give a good estimate for $\theta^*$. 
+
+\subsubsection{Fisher Information explicitly from the pdf/pmf}
+Let $\theta \in \Theta \subset \mathbb {R}^ d$ and let $(E,\mathbf{P}\{\theta\}_{\theta \in \Theta})$ be a statistical model. Let $f_{\theta }(\mathbf x)$ be the pdf of the distribution $\mathbf{P}_\theta$. Then, the Fisher information $\mathcal{I}$ of the statistical model is
+ $$\mathcal{I}(\theta ) = \textsf{Cov}(\nabla \ell (\theta )) = -\mathbb E\left[\mathbf{H}\ell (\theta )\right],$$	
+ where $\ell (\theta ) = \ln f_\theta (\mathbf X)$\\
+ The definition when the distribution has a pmf $p_\theta (\mathbf x)$ is almost the same, with the expectation taken with respect to the pmf. 
+ 
+ \subsubsection{ Asymptotic normality of the MLE}
+ Theorem: Let $\theta^* \in \Theta$ be the true parameter. Assume:
+ \begin{itemize}
+\item The parameter is identifiable;
+\item For all $\theta \in \Theta$, the support of $\mathbb{P}_\theta$ does not depend on $\theta$;
+ \item $\theta^*$ is not on the boundary of $\Theta$;
+ \item $\mathcal{I}(\theta)$ is invertible in the neighbourhood of $\theta^*$;
+ \item A few more technical conditions.
+ \end{itemize}
+ \vspace{1mm}
+ Then, $\widehat \theta^{\textsf{MLE}}_n$ satisfies\\
+\vspace{1mm}
+{\renewcommand{\arraystretch}{2}%
+\begin{tabular}{@{} ll @{}} % Column formatting, @{} suppresses leading/trailing space
+      Consistency & $\widehat \theta^{\textsf{MLE}}_n\xrightarrow[n\to\infty]{\mathbb{P}}\theta^*\quad \text{w.r.t }\mathbb{P}_{\theta^*}$\\ 
+     Asymptotic normality &  $ \sqrt{n}\left(\widehat \theta^{\textsf{MLE}}_n-\theta^*\right) \xrightarrow[n\to\infty]{(d)} \mathcal{N}_d\left(0,\mathcal{I}^{-1}(\theta^*) \right)$\\
+\end{tabular}}
+ \vspace{1mm}
+ 
+So, the inverse of the Fisher information is the asymptotic variance of the MLE. The bigger the Fisher information, the smaller the asymptotic variance and thus the more precisely we can estimate the true parameter. i.e. the more information we have.
+   
+\section{Method of Moments}   
+
+\section{Hypothesis Testing}
+
+\subsection{Parametric Hypothesis Testing}
+
+\subsubsection{The $\chi^2$ distribution}
+For a positive integer $d$, the $\chi^2$ distribution with $d$ degrees of freedom is the random variable
+$$Z_1^2+Z_2^2+\dots +Z_d^2$$
+where $Z_1,\dots,Z_d \stackrel{i.i.d}{\sim} \mathcal{N}(0,1).$
+\begin{itemize}
+\item If $Z{\sim}\mathcal{N}_d(0,\matr{I}_d)$, then $\norm{Z}_2^2{\sim}\chi^2_d$
+\item $\chi^2_2\sim\textsf{Exp}(1/2)$
+\item $\mathbb{E}\left[V{\sim}\chi^2_d\right]=\mathbb{E}[Z_1^2]+\dots+\mathbb{E}[Z_d^2]=d$
+\item $\textsf{var}\left[V{\sim}\chi^2_d\right]=\textsf{var}[Z_1^2]+\dots+\textsf{var}[Z_d^2]=2d$
+\end{itemize}
+
+\subsubsection{Sample variance and Cochran's Theorem}
+Recall, sample variance is
+$$S_n=\frac{1}{n}\sum_{i=1}^n{(X_i-\overline X_n)^2}=\frac{1}{n}\sum_{i=1}^n{X_i^2-\overline X_n^2}$$
+
+
+The next two tests can be applied for generally to data that is not drawn from a gaussian distribution (but some restrictions still apply).
+\subsubsection{Wald's Test}
+
+$$n(\widehat\theta^{MLE}-\theta)^T\mathcal{I}(\widehat\theta^{MLE})(\widehat\theta^{MLE}-\theta)\xrightarrow[n\to\infty]{(d)}\chi_d^2$$
+
+\subsubsection{Likelihood Ratio Test}
+$$T_n=2\ln (\ell_n(\hat\theta_n)-\ell_n(\hat\theta_n^c))$$
+Is like Wald's rest in one dimension, but instead of measring whether $\theta$ is close to $\theta_0$ on the $x$ axis, we are measuring whether the likelihood of $\theta$ is close to that of $\theta_0$ on the $y$ axis.
+
+\subsubsection{Welch-Satterthwaite formula}
+$$N=\frac{(\hat\sigma^2_d/n+\hat\sigma^2_c/m)^2}{\frac{\hat\sigma^4_d}{n^2(n-1)}+\frac{\hat\sigma^4_c}{m^2(m-1)}}\geq\min (n,m)$$
+
+\scriptsize
+\end{multicols*}
+\end{document}

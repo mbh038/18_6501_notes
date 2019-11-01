@@ -1,0 +1,35 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+
+\begin{document}
+
+\section*{Proof of the Delta Method}
+
+For simplicity, we will prove only the case when is $g$ continuously differentiable everywhere in $\mathbb{R}$, ie. $g$ and $g\prime$ exist and are continuous everywhere. Let $\mu$ be arbitrary. The mean value theorem (which is the zeroth order statement of Taylor's theorem) states that for any $z >\mu$,
+$$  g(z)=g(\mu )+g'(c_ z)(z-\mu )\qquad \text {for some } c_ z\in (\mu ,z) $$
+Notice that $c_z$ is a function of $z$. This works also for the case $z<\mu$. The two cases together give the statement that for any $z$:
+$$g(z)=g(\mu )+g'(c_ z)(z-\mu )\qquad \text {for some } c_ z \text { such that } |c_ z-\mu |<|z-\mu |.$$
+For each $z$, we can make a choice of $c_z$ that makes the above statement true: we no think of $c$ as being a function of $z$ (but we will continue to write $c_z$ to denote $c(z)$). This implies that for a random variable $Z$,
+$$g(Z)-g(\mu )=g'(c_ Z)(Z-\mu )\qquad \text {for some } c \text { such that } |c_ Z-\mu |<|Z-\mu |.$$
+Now, given an arbitrary sequence $(Z_n)_{n\ge1}$ and for any $\mu$, the above statement is true for each random variable $Z_n$ in the sequence.
+$$g(Z_ n)-g(\mu )=g'(c_{Z_ n})(Z_ n-\mu )\qquad \text {for some } c \text { such that } |c_{Z_ n}-\mu | < |Z_ n - \mu |$$.
+We return to the statistical context. Let $X_1, X_2,\ldots ,X_ n\stackrel{\text {i.i.d}}{\sim } X$, and let $Z_n=\overline X_n$ and $\mu=\mathbb{E}[X]$. Plugging these into the equation above and multiplying by $\sqrt{n}$ , we have
+$$g'\left(c_{\overline{X}_ n}\right)\left(\sqrt{n}(\overline{X}_ n-\mu )\right) \qquad \text {where} \left|c_{\overline{X}_ n}-\mu \right|<\left|\overline{X}_ n-\mu \right|.$$
+We now deal separately with the two factors on the right hand side. BY CLT, we know that the second factor is asymptotically normal:
+$$\left(\sqrt{n}(\overline{X}_ n-\mu )\right)\xrightarrow [n \to \infty ]{(d)} N(0,\sigma ^2).$$
+For the second factor, observe that since $\left|c_{\overline{X}_ n}-\mu \right|<\left|\overline{X}_ n-\mu \right|$, we have for any $\epsilon>0$,
+$$\mathbf{P}\left(\left|c_{\overline{X}_ n}-\mu \right|>\epsilon \right)\leq \mathbf{P}\left(\left|\overline{X}_ n-\mu \right|>\epsilon \right).$$
+Together with the fact that $\overline{X}_ n \xrightarrow [n\to \infty ]{\mathbf{P}} \mu$, this implies that
+$$c_{\overline{X}_ n}\xrightarrow [n \to \infty ]{\mathbf{P}} \mu .$$
+Since $g\prime$ is continuous, then by the continuous mapping theorem,
+$$g'(c_{\overline{X}_ n})\xrightarrow [n \to \infty ]{\mathbf{P}} g'(\mu ).$$
+Finally, by Slutsky's theorem,
+$$\sqrt{n}\left(g(\overline{X}_ n)-g(\mu )\right)\xrightarrow [n \to \infty ]{(d)} N(0,\left(g'(\mu )\right)^2\sigma ^2).$$
+\textbf{Remark}: notice that $g\prime$ only needs to be continuously differentiable close to $\mu$.
+\end{document}

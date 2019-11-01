@@ -1,0 +1,90 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+
+\begin{document}
+
+\section*{Delta method and asymptotic variances}
+
+Recall that the asymptotic variance of an estimator $\widehat\theta$ for a parameter $\theta$ is defined as $V(\widehat{\theta })$, if
+$$\sqrt{n}(\widehat{\theta } - \theta ) \xrightarrow [n \to \infty ]{\mathrm{(d)}} \mathcal{N}(0, V(\widehat{\theta })).$$
+
+ The arguments that we use to establish asymptotic normality are often the same in our setups, namely the Law of Large Numbers, the Central Limit Theorem, and the Delta Method. First, we review the assumptions and statements of those theorems: 
+ 
+ Let $X_1,X_2\dots,$ be random variables.\newline
+ \subsection*{The (Weak) Law of Large Numbers}
+ This says that with
+$$\overline X_n=\frac{1}{n}\sum_{i=1}^n X_i,$$
+we have
+$$\overline X_n\xrightarrow[n\to\infty]{\mathbb{P}}\mathbb{E}[X_1].$$
+providing that $\mathbb{E}[X_i]$ are all finite and that the $X_i$ are i.i.d.
+
+\subsection*{The Central Limit Theorem}
+The Central Limit Theorem states that, under some assumptions, there is $V$ such that
+$$\sqrt{n} (\overline{X}_ n - \mathbb E[X_1]) \xrightarrow {\mathrm{(D)}} \mathcal{N}(0,V).$$
+The assumptions are that $\mathbb{E}[|X_i|]$ \emph{and} $\textsf{Var}(X_ i)$ are finite for all $i$, and that the $X_i$ are i.i.d.
+
+\subsection*{The Delta Method}
+The Delta Method gives us a way to determine the asymptotic variance of a transformation of a random variable whose asymptotic variance we do know.\newline
+Let $\theta \in \mathbb{R}$ be a parameter and $Z_n\in\mathbb{R}$ be a sequence of random variables that satisfies 
+$$\sqrt{n}(Z_ n - \theta ) \xrightarrow [n \to \infty ]{\mathrm{(d)}} \mathcal{N}(0,V)$$
+for some $V>0.$\newline
+Given a function $g \,  \colon \Omega \subseteq \mathbb {R}\to \mathbb {R},$
+$$\sqrt{n}(g(Z_ n) - g(\theta )) \xrightarrow [n \to \infty ]{\mathrm{(d)}} \mathcal{N}(0,g'(\theta )^2 V).$$
+providing $g(\theta)$ is continuously differentiable at $\theta$.
+
+\subsection*{Delta Method applied to a Poisson Statistical Model}
+
+Argue that the proposed estimators $\widehat{\lambda }$ and $\widetilde\lambda$ below are both consistent and asymptotically normal. Then, give their asymptotic variances $V(\widehat\lambda )$ and $V(\widetilde\lambda )$, and decide if one of them is always bigger than the other.\newline
+
+Let $X_1,\ldots ,X_ n\stackrel{i.i.d.}{\sim }\textsf{Poiss}(\lambda )$, for some $\lambda > 0$. Let $\widehat\lambda =\overline{X}_n$ and $\widetilde\lambda =-\ln (\overline{Y}_ n)$, where  $Y_ i=\mathbf{1}\{ X_ i=0\} , i=1,\ldots ,n$. \newline.
+
+For $\widehat\lambda$, by the Law of Large Numbers,
+$$\widehat\lambda=\overline{X}_ n \xrightarrow [n \to \infty ]{\mathbf{P}} \mathbb E[X_1] = \lambda$$
+By the Central Limit Theorem,
+$$\sqrt{n} (\overline{X}_ n - \lambda ) \sim \mathcal{N}(0,\textsf{Var}(X_1)) = \mathcal{N}(0,\lambda )$$
+Hence 
+$$V(\widehat\lambda)=\lambda$$
+For $\widetilde \lambda,$ first observe that by the Law of Large Numbers,
+$$\overline Y_n\xrightarrow[n\to\infty]{\mathbf{P}}\mathbb{E}[\overline Y_1]=\mathbb{P}(\overline X_1=1)=e^{-\lambda},$$
+So with $g(t) = -\log (t)$,
+$$\widetilde\lambda = g(\overline{Y}_ n) \xrightarrow [n \to \infty ]{\mathbf{P}} g(e^{-\lambda }) = \lambda .$$
+Hence we see that both $\widehat\lambda$ and $\widetilde \lambda$ are consistent estimators of $\lambda$.\newline
+Now, $\overline Y_n$ is a Bernoulii random variable with parameter $e^{-\lambda}$, so by the Central Limit Theorem
+$$\sqrt{n}(\overline Y_n-\mathbb{E}[Y_1])\xrightarrow[n\to\infty]{(d)}\mathcal{N}\left(0,e^{-\lambda}(1-e^{-\lambda})\right)$$
+Since $\widetilde \lambda = -\log (\overline Y_n)=g(\overline Y_n)$ is a function $\overline Y_n$, whose variance we know, we can use the Delta method to find the variance of $\widetilde \lambda$. To do this we compute
+$$g'(t) = -\frac{1}{t}, \quad g'(e^ {-\lambda }) = - e^{\lambda},\quad \left(g'(e^ {-\lambda })\right)^2 = e^{2\lambda},$$
+which results in
+$$\sqrt{n}\left(g(\overline Y_n)-g(e^{-\lambda})\right)=\sqrt{n}(\tilde\lambda - \lambda ) \xrightarrow [n \to \infty ]{\mathrm{(d)}} \mathcal{N}\left(0, \left(g'(e^ {-\lambda })\right)^2 \left(e^{\lambda} - 1\right)\right)=\mathcal{N}(0, e^{\lambda} - 1).$$
+
+\section*{The Delta Method applied to an Exponential Statistical Model}
+
+As above argue that the proposed estimators $\widehat{\lambda }$ and $\widetilde\lambda$ below are both consistent and asymptotically normal. Then, give their asymptotic variances $V(\widehat\lambda )$ and $V(\widetilde\lambda )$, and decide if one of them is always bigger than the other.\newline
+Let $X_1,\ldots ,X_ n\stackrel{i.i.d.}{\sim }\textsf{Exp}(\lambda )$ for some $\lambda>0$. Let $\widehat{\lambda }=\frac{1}{\overline X_n}$ and let $\widetilde\lambda=-\log (\overline Y_n)$ where $Y_ i=\mathbf{1}\{ X_ i>1\} , i=1,\ldots ,n,$\newline
+For $\widehat{\lambda }$ we have,
+$$\overline X_n\xrightarrow[n\to\infty]{\mathbb{P}}\mathbb{E}[X_1]=\frac{1}{\lambda}$$
+Hence by the continuous mapping theorem, with $g(t)=1/t$ we have that
+$$\widehat\lambda=\frac{1}{\overline X_n}\xrightarrow[n\to\infty]{\mathbb{P}}\frac{1}{\mathbb{E}[X_1]}=\lambda.$$
+By the Central Limit theorem,
+$$\sqrt{n} (\overline{X}_ n - \frac{1}{\lambda }) \sim \mathcal{N}(0,\textsf{Var}(X_1)) = \mathcal{N}\left(0,\frac{1}{\lambda ^2}\right).$$
+but what we want is
+$$\sqrt{n} (\widehat\lambda - \lambda ) \sim \mathcal{N}(0,\textsf{Var}(\widehat\lambda)) = \mathcal{N}(0,\lambda )$$
+To find $\textsf{Var}(\widehat\lambda)$ we use the Delta method.
+Now, 
+$$g^\prime(t)=\frac{-1}{t^2} \text{ so }\left(g^\prime\left(\frac{1}{\lambda}\right)\right)^2=\lambda^4.$$
+Hence, application of the Delta Method gives us
+$$V(\widehat\lambda)=\left(g^\prime\left(\frac{1}{\lambda}\right)\right)^2\cdot\textsf{Var}(X_1)=\lambda^4\frac{1}{\lambda^2}=\lambda^2$$
+
+For $\widetilde\lambda$, first observe that it is the average of Bernoulli variables, and by the Law of Large Numbers, 
+$$\overline{Y}_ n \xrightarrow [n \to \infty ]{\mathbf{P}} \mathbb E[Y_1] = \mathbf{P}(X_1 > 1) = \exp (-\lambda ),$$
+so with $\tilde g(t) = -\log (t)$,
+$$\tilde\lambda = \tilde g(\overline{Y}_ n) \xrightarrow [n \to \infty ]{\mathbf{P}} \tilde g(\exp (-\lambda )) = \lambda .$$
+which results in
+$$\sqrt{n}(\tilde\lambda - \lambda ) \xrightarrow [n \to \infty ]{\mathrm{(d)}} \mathcal{N}(0, \exp (\lambda ) - 1).$$
+
+\end{document}
