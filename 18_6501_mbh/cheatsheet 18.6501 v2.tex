@@ -27,7 +27,8 @@
 \newcommand*{\hermconj}{^{\mathsf{H}}}
 
 %other locally defined commands that have proven useful
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % for the norm symbol
+\newcommand{\indep}{\perp \!\!\! \perp}  % for the independence symbol
 
 
 % The rest of the preamble that follows  is pretty much entirely (Sep-2019) based on the LAtex Cheatsheet of William Chen.
@@ -775,15 +776,28 @@ where $Z_1,\dots,Z_d \stackrel{i.i.d}{\sim} \mathcal{N}(0,1).$
 Recall, sample variance is
 $$S_n=\frac{1}{n}\sum_{i=1}^n{(X_i-\overline X_n)^2}=\frac{1}{n}\sum_{i=1}^n{X_i^2-\overline X_n^2}$$
 
+Cochran's theorem states that for $X_1,\dots,X_n\stackrel{i.i.d}{\sim}\mathcal{N}(\mu,\sigma^2)$, if $S_n$ is the sample variance, then
+\begin{itemize}
+\item $\overline X_n \indep S_n$ for all $n$ - so not just asymtotically.
+\item $\frac{nS_n}{\sigma^2}\sim\chi^2_{n-1}$
+\item An unbiased estimator $\tilde S_n$  is
+$$\tilde S_n=\frac{1}{n-1}\sum_{i=1}^n{(X_i-\overline X_n)^2}=\frac{n}{n-1}S_n$$
+so that
+$$\mathbb{E}[\tilde S_n]=\frac{n}{n-1}\mathbb{E}[S_n]=\frac{n}{n-1}\mathbb{E}\left[\frac{\sigma^2\chi^2_{n-1}}{n}\right]=\frac{n}{n-1}\frac{\sigma^2(n-1)}{n}=\sigma^2$$
 
-The next two tests can be applied for generally to data that is not drawn from a gaussian distribution (but some restrictions still apply).
+
+
+\end{itemize}
+
+
+The next two tests can be applied more generally to data that is not drawn from a gaussian distribution (but some restrictions still apply).
 \subsubsection{Wald's Test}
 
 $$n(\widehat\theta^{MLE}-\theta)^T\mathcal{I}(\widehat\theta^{MLE})(\widehat\theta^{MLE}-\theta)\xrightarrow[n\to\infty]{(d)}\chi_d^2$$
 
 \subsubsection{Likelihood Ratio Test}
 $$T_n=2\ln (\ell_n(\hat\theta_n)-\ell_n(\hat\theta_n^c))$$
-Is like Wald's rest in one dimension, but instead of measring whether $\theta$ is close to $\theta_0$ on the $x$ axis, we are measuring whether the likelihood of $\theta$ is close to that of $\theta_0$ on the $y$ axis.
+Is like Wald's test in one dimension, but instead of measuring whether $\theta$ is close to $\theta_0$ on the $x$ axis, we are measuring whether the likelihood of $\theta$ is close to that of $\theta_0$ on the $y$ axis.
 
 \subsubsection{Welch-Satterthwaite formula}
 $$N=\frac{(\hat\sigma^2_d/n+\hat\sigma^2_c/m)^2}{\frac{\hat\sigma^4_d}{n^2(n-1)}+\frac{\hat\sigma^4_c}{m^2(m-1)}}\geq\min (n,m)$$
