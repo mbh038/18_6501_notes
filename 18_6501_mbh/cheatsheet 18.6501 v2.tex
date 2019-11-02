@@ -791,6 +791,18 @@ For a positive integer $d$, the \emph{Student's T distribution} with $d$ degrees
 $$t_d\sim\frac{Z}{\sqrt{V/d}}$$ 
 where $Z\sim\mathcal{N}(0,1)$, $V\sim\chi^2_d$ and $Z\indep V$
 
+\subsubsection{Student's $T$ test}
+Let $X_1,\dots,X_n\stackrel{i.i.d}{\sim}\mathcal{N}(\mu,\sigma^2)$ where both $\mu$ and $\sigma^2$ are unknown.
+To test:
+$$H_0:\quad\mu=0,\qquad\text{vs}\qquad H_1:\quad\mu\neq 0$$
+we use the test statistic
+$$T_n=\frac{\sqrt{n}\bar X_n}{\sqrt{\tilde S_n}}=\sqrt{n}\frac{\overline X_n/\sigma}{\sqrt{\tilde S_n/\sigma^2}}$$  
+Since $\sqrt{n} \bar X_n/\sigma \sim \mathcal{N}(0,1)$  (under $H_0$), and $\tilde S_n/\sigma^2 \sim \frac{\chi^2_{n-1}}{n-1}$ are ndependent by Cochran's theorem, we have
+$$T_n \sim t_{n-1}.$$
+So that the students $T$ test with non-asymptotic level $\alpha\in(0,1)$ is
+$$\psi(\alpha)=\mathds{1} \left\{\vert T_n\vert>q_{\alpha/2}\right\}$$
+where $q_{\alpha /2}$ is the $(1-\alpha /2)$ quantile of $t_{n-1}$.
+
 \subsubsection{Pros and cons of $T$ test}
 Advantage: Non-asymptotic. i.e. can be run on small samples. Will also work on large samples\\
 Disadvantage: The sample has to be drawn from a normally distributed population. 

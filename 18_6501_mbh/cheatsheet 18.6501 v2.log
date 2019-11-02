@@ -1,4 +1,4 @@
-This is LuaTeX, Version 0.95.0 (TeX Live 2016)  (format=lualatex 2016.10.10)  2 NOV 2019 08:27
+This is LuaTeX, Version 0.95.0 (TeX Live 2016)  (format=lualatex 2016.10.10)  2 NOV 2019 17:11
  restricted system commands enabled.
  file:line:error style messages enabled.
 **"cheatsheet 18.6501 v2.tex"
@@ -563,7 +563,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.126 seconds)
+luaotfload | main : initialization completed in 0.122 seconds)
 Lua module: fontspec 2016/02/01 2.5a Advanced font selection for LuaLaTeX.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
 Package: fontspec-luatex 2016/02/01 v2.5a Font selection for XeLaTeX and LuaLaTe
@@ -1020,8 +1020,16 @@ LaTeX Font Info:    Encoding `OMX' has changed to `EU2' for symbol font
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/cmex/m/n --> EU2/XITSMath(2)/bx/n on input line 23.
  ("./cheatsheet 18.6501 v2.aux")
-\openout1 = cheatsheet 18.6501 v2.aux
+Runaway argument?
+{\contentsline {subsubsection}{Total variation distance between conti\ETC.
+./cheatsheet 18.6501 v2.tex:112: File ended while scanning use of \@writefile.
+<inserted text> 
+\par 
+l.112 \begin{document}
+                    
+? 
 
+\openout1 = cheatsheet 18.6501 v2.aux
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 112.
 LaTeX Font Info:    ... okay on input line 112.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 112.
@@ -1040,7 +1048,6 @@ LaTeX Font Info:    Checking defaults for EU2/lmr/m/n on input line 112.
 LaTeX Font Info:    ... okay on input line 112.
 LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 112.
 LaTeX Font Info:    Try loading font information for T3+cmr on input line 112.
-
 (/usr/local/texlive/2016/texmf-dist/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
@@ -1227,45 +1234,53 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 794.
 
-LaTeX Font Info:    Font shape `EU2/XITSMath(1)/m/n' will be
-(Font)              scaled to size 10.00015pt on input line 798.
-LaTeX Font Info:    Font shape `EU2/XITSMath(1)/m/n' will be
-(Font)              scaled to size 7.0001pt on input line 798.
-LaTeX Font Info:    Font shape `EU2/XITSMath(2)/m/n' will be
-(Font)              scaled to size 9.99985pt on input line 798.
-LaTeX Font Info:    Font shape `EU2/XITSMath(2)/m/n' will be
-(Font)              scaled to size 6.9999pt on input line 798.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 798.
+(hyperref)                removing `math shift' on input line 806.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 798.
+(hyperref)                removing `math shift' on input line 806.
+
+LaTeX Font Info:    Font shape `EU2/XITSMath(1)/m/n' will be
+(Font)              scaled to size 10.00015pt on input line 810.
+LaTeX Font Info:    Font shape `EU2/XITSMath(1)/m/n' will be
+(Font)              scaled to size 7.0001pt on input line 810.
+LaTeX Font Info:    Font shape `EU2/XITSMath(2)/m/n' will be
+(Font)              scaled to size 9.99985pt on input line 810.
+LaTeX Font Info:    Font shape `EU2/XITSMath(2)/m/n' will be
+(Font)              scaled to size 6.9999pt on input line 810.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 810.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 810.
 
 (load luc: /usr/local/texlive/2016/texmf-var/luatex-cache/generic/fonts/otl/lmro
 man7-regular.luc) [6]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 813.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 813.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 825.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 825.
  ("./cheatsheet 18.6501 v2.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 813.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 813.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 825.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 825.
 Package rerunfilecheck Info: File `"cheatsheet 18.6501 v2".out' has not changed.
 
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 813.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 825.
 )
 
 Here is how much of LuaTeX's memory you used:
- 25881 strings out of 495119
+ 25858 strings out of 495119
  100000,662416 words of node,token memory allocated
- 14841 words of node memory still in use:
-   8 hlist, 2 vlist, 2 rule, 1811 glue, 1 kern, 434 attribute, 50 glue_spec, 434
+ 15129 words of node memory still in use:
+   8 hlist, 2 vlist, 2 rule, 1847 glue, 1 kern, 443 attribute, 50 glue_spec, 443
  attribute_list, 1 write nodes
-   avail lists: 1:5,2:1685,3:386,4:30,5:662,6:4787,7:1994,8:151,9:1088,10:22,11:
+   avail lists: 1:5,2:1667,3:386,4:30,5:662,6:4787,7:1958,8:151,9:1088,10:22,11:
 366
- 28666 multiletter control sequences out of 65536+600000
- 93 fonts using 19762655 bytes
+ 28642 multiletter control sequences out of 65536+600000
+ 93 fonts using 19762975 bytes
  55i,18n,64p,1074b,592s stack positions out of 5000i,500n,10000p,200000b,100000s
 </usr/local/texlive/2016/texmf-dist/fonts/opentype/public/xits/xits-math.otf></u
 sr/local/texlive/2016/texmf-dist/fonts/opentype/public/lm/lmroman9-bold.otf></us
@@ -1283,10 +1298,10 @@ usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr
 /local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/lo
 cal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local
 /texlive/2016/texmf-dist/fonts/type1/public/doublestroke/dsrom8.pfb>
-Output written on cheatsheet 18.6501 v2.pdf (6 pages, 152924 bytes).
+Output written on cheatsheet 18.6501 v2.pdf (6 pages, 152648 bytes).
 
-PDF statistics: 469 PDF objects out of 1000 (max. 8388607)
- 416 compressed objects within 5 object streams
- 89 named destinations out of 1000 (max. 131072)
- 657 words of extra memory for PDF output out of 10000 (max. 10000000)
+PDF statistics: 397 PDF objects out of 1000 (max. 8388607)
+ 345 compressed objects within 4 object streams
+ 90 named destinations out of 1000 (max. 131072)
+ 465 words of extra memory for PDF output out of 10000 (max. 10000000)
 
