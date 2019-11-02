@@ -778,21 +778,27 @@ $$S_n=\frac{1}{n}\sum_{i=1}^n{(X_i-\overline X_n)^2}=\frac{1}{n}\sum_{i=1}^n{X_i
 
 Cochran's theorem states that for $X_1,\dots,X_n\stackrel{i.i.d}{\sim}\mathcal{N}(\mu,\sigma^2)$, if $S_n$ is the sample variance, then
 \begin{itemize}
-\item $\overline X_n \indep S_n$ for all $n$ - so not just asymtotically.
+\item $\overline X_n \indep S_n$ for all $n$ - so not just asymptotically.
 \item $\frac{nS_n}{\sigma^2}\sim\chi^2_{n-1}$
 \item An unbiased estimator $\tilde S_n$  is
 $$\tilde S_n=\frac{1}{n-1}\sum_{i=1}^n{(X_i-\overline X_n)^2}=\frac{n}{n-1}S_n$$
 so that
 $$\mathbb{E}[\tilde S_n]=\frac{n}{n-1}\mathbb{E}[S_n]=\frac{n}{n-1}\mathbb{E}\left[\frac{\sigma^2\chi^2_{n-1}}{n}\right]=\frac{n}{n-1}\frac{\sigma^2(n-1)}{n}=\sigma^2$$
-
-
-
 \end{itemize}
 
+\subsubsection{Student's $T$ distribution}
+For a positive integer $d$, the \emph{Student's T distribution} with $d$ degrees of freedom is 
+$$t_d\sim\frac{Z}{\sqrt{V/d}}$$ 
+where $Z\sim\mathcal{N}(0,1)$, $V\sim\chi^2_d$ and $Z\indep V$
 
+\subsubsection{Pros and cons of $T$ test}
+Advantage: Non-asymptotic. i.e. can be run on small samples. Will also work on large samples\\
+Disadvantage: The sample has to be drawn from a normally distributed population. 
+
+\subsection{Beyond the $T$ test}
 The next two tests can be applied more generally to data that is not drawn from a gaussian distribution (but some restrictions still apply).
-\subsubsection{Wald's Test}
 
+\subsubsection{Wald's Test}
 $$n(\widehat\theta^{MLE}-\theta)^T\mathcal{I}(\widehat\theta^{MLE})(\widehat\theta^{MLE}-\theta)\xrightarrow[n\to\infty]{(d)}\chi_d^2$$
 
 \subsubsection{Likelihood Ratio Test}

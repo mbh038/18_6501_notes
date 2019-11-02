@@ -74,6 +74,9 @@
 \BOOKMARK [2][-]{section*.74}{Parametric Hypothesis Testing}{section*.73}% 74
 \BOOKMARK [3][-]{section*.75}{The \mitchi 2 distribution}{section*.74}% 75
 \BOOKMARK [3][-]{section*.76}{Sample variance and Cochran's Theorem}{section*.74}% 76
-\BOOKMARK [3][-]{section*.77}{Wald's Test}{section*.74}% 77
-\BOOKMARK [3][-]{section*.78}{Likelihood Ratio Test}{section*.74}% 78
-\BOOKMARK [3][-]{section*.79}{Welch-Satterthwaite formula}{section*.74}% 79
+\BOOKMARK [3][-]{section*.77}{Student's T distribution}{section*.74}% 77
+\BOOKMARK [3][-]{section*.78}{Pros and cons of T test}{section*.74}% 78
+\BOOKMARK [2][-]{section*.79}{Beyond the T test}{section*.73}% 79
+\BOOKMARK [3][-]{section*.80}{Wald's Test}{section*.79}% 80
+\BOOKMARK [3][-]{section*.81}{Likelihood Ratio Test}{section*.79}% 81
+\BOOKMARK [3][-]{section*.82}{Welch-Satterthwaite formula}{section*.79}% 82
