@@ -1,2 +1,4 @@
 # 18_6501_notes
- Note for MITx 18.6501x
+ Notes for MITx 18.6501x
+
+Some are mine, but mostly copied from the course slides, and some are by others.
