@@ -768,8 +768,11 @@ where $Z_1,\dots,Z_d \stackrel{i.i.d}{\sim} \mathcal{N}(0,1).$
 \begin{itemize}
 \item If $Z{\sim}\mathcal{N}_d(0,\matr{I}_d)$, then $\norm{Z}_2^2{\sim}\chi^2_d$
 \item $\chi^2_2\sim\textsf{Exp}(1/2)$
-\item $\mathbb{E}\left[V{\sim}\chi^2_d\right]=\mathbb{E}[Z_1^2]+\dots+\mathbb{E}[Z_d^2]=d$
-\item $\textsf{var}\left[V{\sim}\chi^2_d\right]=\textsf{var}[Z_1^2]+\dots+\textsf{var}[Z_d^2]=2d$
+\end{itemize}
+if $V{\sim}\chi^2_d$ then
+\begin{itemize}
+\item $\mathbb{E}[V]=\mathbb{E}[Z_1^2]+\dots+\mathbb{E}[Z_d^2]=d$
+\item $\textsf{var}[V]=\textsf{var}[Z_1^2]+\dots+\textsf{var}[Z_d^2]=2d$
 \end{itemize}
 
 \subsubsection{Sample variance and Cochran's Theorem}
@@ -779,12 +782,12 @@ $$S_n=\frac{1}{n}\sum_{i=1}^n{(X_i-\overline X_n)^2}=\frac{1}{n}\sum_{i=1}^n{X_i
 Cochran's theorem states that for $X_1,\dots,X_n\stackrel{i.i.d}{\sim}\mathcal{N}(\mu,\sigma^2)$, if $S_n$ is the sample variance, then
 \begin{itemize}
 \item $\overline X_n \indep S_n$ for all $n$ - so not just asymptotically.
-\item $\frac{nS_n}{\sigma^2}\sim\chi^2_{n-1}$
-\item An unbiased estimator $\tilde S_n$  is
+\item $\dfrac{nS_n}{\sigma^2}\sim\chi^2_{n-1}$
+\end{itemize}
+An unbiased estimator $\tilde S_n$  is
 $$\tilde S_n=\frac{1}{n-1}\sum_{i=1}^n{(X_i-\overline X_n)^2}=\frac{n}{n-1}S_n$$
 so that
 $$\mathbb{E}[\tilde S_n]=\frac{n}{n-1}\mathbb{E}[S_n]=\frac{n}{n-1}\mathbb{E}\left[\frac{\sigma^2\chi^2_{n-1}}{n}\right]=\frac{n}{n-1}\frac{\sigma^2(n-1)}{n}=\sigma^2$$
-\end{itemize}
 
 \subsubsection{Student's $T$ distribution}
 For a positive integer $d$, the \emph{Student's T distribution} with $d$ degrees of freedom is 
@@ -799,13 +802,13 @@ we use the test statistic
 $$T_n=\frac{\sqrt{n}\bar X_n}{\sqrt{\tilde S_n}}=\sqrt{n}\frac{\overline X_n/\sigma}{\sqrt{\tilde S_n/\sigma^2}}$$  
 Since $\sqrt{n} \bar X_n/\sigma \sim \mathcal{N}(0,1)$  (under $H_0$), and $\tilde S_n/\sigma^2 \sim \frac{\chi^2_{n-1}}{n-1}$ are ndependent by Cochran's theorem, we have
 $$T_n \sim t_{n-1}.$$
-So that the students $T$ test with non-asymptotic level $\alpha\in(0,1)$ is
+Thus the students $T$ test with non-asymptotic level $\alpha\in(0,1)$ is
 $$\psi(\alpha)=\mathds{1} \left\{\vert T_n\vert>q_{\alpha/2}\right\}$$
 where $q_{\alpha /2}$ is the $(1-\alpha /2)$ quantile of $t_{n-1}$.
 
-\subsubsection{Pros and cons of $T$ test}
-Advantage: Non-asymptotic. i.e. can be run on small samples. Will also work on large samples\\
-Disadvantage: The sample has to be drawn from a normally distributed population. 
+\subsubsection{Pros and cons of the $T$ test}
+\emph{Advantage}: Non-asymptotic. i.e. can be run on small samples. Will also work on large samples\\
+\emph{Disadvantage}: The sample has to be drawn from a normally distributed population. 
 
 \subsection{Beyond the $T$ test}
 The next two tests can be applied more generally to data that is not drawn from a gaussian distribution (but some restrictions still apply).
