@@ -814,7 +814,19 @@ where $q_{\alpha /2}$ is the $(1-\alpha /2)$ quantile of $t_{n-1}$.
 The next two tests can be applied more generally to data that is not drawn from a gaussian distribution (but some restrictions still apply).
 
 \subsubsection{Wald's Test}
-This test is based on the MLE.
+This test is based on the MLE.\\
+\begin{itemize}
+\item Consider an i.i.d. sample $X_1,\dots,X_n$ with statistical model $(E,(\mathbb{P}_\theta)_{\theta\in\Theta})$
+\item Consider the two hypotheses
+\begin{equation*}
+\begin{cases}
+$H_0:\quad\theta=\theta_0$\\
+$H_1:\quad\theta\neq\theta_0$\\
+\end{cases}
+\end{equation*}
+\item Let $\hat\theta^{MLE}$ be the MLE. Assume the MLE technical conditions are satisfied.
+\item If $H_0$ is true, then
+\end{itemize}
 
 $$n(\widehat\theta^{MLE}-\theta)^T\mathcal{I}(\widehat\theta^{MLE})(\widehat\theta^{MLE}-\theta)\xrightarrow[n\to\infty]{(d)}\chi_d^2$$
 
