@@ -814,11 +814,13 @@ where $q_{\alpha /2}$ is the $(1-\alpha /2)$ quantile of $t_{n-1}$.
 The next two tests can be applied more generally to data that is not drawn from a gaussian distribution (but some restrictions still apply).
 
 \subsubsection{Wald's Test}
+This test is based on the MLE.
+
 $$n(\widehat\theta^{MLE}-\theta)^T\mathcal{I}(\widehat\theta^{MLE})(\widehat\theta^{MLE}-\theta)\xrightarrow[n\to\infty]{(d)}\chi_d^2$$
 
 \subsubsection{Likelihood Ratio Test}
 $$T_n=2\ln (\ell_n(\hat\theta_n)-\ell_n(\hat\theta_n^c))$$
-Is like Wald's test in one dimension, but instead of measuring whether $\theta$ is close to $\theta_0$ on the $x$ axis, we are measuring whether the likelihood of $\theta$ is close to that of $\theta_0$ on the $y$ axis.
+This is like Wald's test in one dimension, but instead of measuring whether $\theta$ is close to $\theta_0$ on the $x$ axis, we are measuring whether the likelihood of $\theta$ is close to that of $\theta_0$ on the $y$ axis.
 
 \subsubsection{Welch-Satterthwaite formula}
 $$N=\frac{(\hat\sigma^2_d/n+\hat\sigma^2_c/m)^2}{\frac{\hat\sigma^4_d}{n^2(n-1)}+\frac{\hat\sigma^4_c}{m^2(m-1)}}\geq\min (n,m)$$
