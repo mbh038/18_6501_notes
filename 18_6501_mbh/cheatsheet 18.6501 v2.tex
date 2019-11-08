@@ -314,9 +314,9 @@ $$p(1-p)\leq\frac{1}{4}$$
 Hence, roughly with probability at least $1-\alpha$,
 $$\overline R_n\in\left[p-\frac{q_{\alpha/2}}{2\sqrt{n}},p+\frac{q_{\alpha/2}}{2\sqrt{n}}\right]$$
 so we get the asymptotic confidence interval
-$$\mathcal{I}_\text{conserv}=\left[\overline R_n-\frac{q_{\alpha/2}}{2\sqrt{n}},\overline R_n+\frac{q_{\alpha/2}}{2\sqrt{n}}\right]$$
+$$I_\text{conserv}=\left[\overline R_n-\frac{q_{\alpha/2}}{2\sqrt{n}},\overline R_n+\frac{q_{\alpha/2}}{2\sqrt{n}}\right]$$
 so
-$$\lim_{n\to \infty}\mathbb P (\mathcal{I}_\text{conserv}\in p)\ge 1-\alpha$$
+$$\lim_{n\to \infty}\mathbb P (I_\text{conserv}\in p)\ge 1-\alpha$$
 Note: this technique does not work for an exponential statistical model, for which there is no a priori way to bound the variance.
 
 \subsubsection{Solution 2: Solve the quadratic equation for p}
@@ -326,8 +326,8 @@ Hence
 $$(p-\overline R_n)^2 \leq \frac{q^2_{\alpha /2}p(1-p)}{n}$$
 The roots $p_1, p_2$ of the quadratic
 $$\left(1+\frac{q^2_{\alpha /2}}{n}\right)p^2-\left(2\overline R_n+\frac{q^2_{\alpha /2}}{n}\right)p+\overline R^2_n=0$$
-give us a confidence interval $\mathcal{I}_\text{solve}=[p_1,p_2]$ such that
-$$\lim_{n\to \infty}\mathbb P (\mathcal{I}_\text{solve}\in p)= 1-\alpha$$
+give us a confidence interval $I_\text{solve}=[p_1,p_2]$ such that
+$$\lim_{n\to \infty}\mathbb P (I_\text{solve}\in p)= 1-\alpha$$
 
 \subsubsection{Solution 3: Plug-in}
 By LLN,  $\hat p=\overline R_n\xrightarrow [n\to \infty ]{\mathbf{P,\text a.s.}}p$\newline
@@ -337,9 +337,9 @@ First term converges in distribution to $\mathcal{N}(0,1)$, second term, by LLN,
 So by Slutsky we also have
 $$\sqrt{n}\frac{\overline R_n-p}{\sqrt{\hat p(1-\hat p)}}\xrightarrow[n\to\infty]{(d)}\mathcal{N}(0,1)$$
 which gives a new confidence interval
-$$\mathcal{I}_\text{plug-in}=\left[\overline{R}_ n-\frac{q_{\alpha /2}\sqrt{\hat p(1-\hat p)}}{\sqrt n},\overline{R}_ n+\frac{q_{\alpha /2}\sqrt{\hat p(1-\hat p)}}{\sqrt n}\right]$$
+$$I_\text{plug-in}=\left[\overline{R}_ n-\frac{q_{\alpha /2}\sqrt{\hat p(1-\hat p)}}{\sqrt n},\overline{R}_ n+\frac{q_{\alpha /2}\sqrt{\hat p(1-\hat p)}}{\sqrt n}\right]$$
 such that
-$$\lim_{n\to \infty}\mathbb P (\mathcal{I}_\text{plug-n}\in p)= 1-\alpha$$
+$$\lim_{n\to \infty}\mathbb P (I_\text{plug-n}\in p)= 1-\alpha$$
 
 \subsection{Example 2: Exponential statistical model}
 Class example: Inter-arrival times of a subway train.\newline
@@ -718,19 +718,19 @@ $$\ell(\theta)=\log L_1(\matr{X},\theta),\quad \theta\in\Theta\subset \mathbb{R}
 Note that $L_1(\matr{X},\theta)$ is a pdf or pmf. - and so integrates/sums to 1.\\
 Assume that $\ell$ is twice differentiable, then under some regularity conditions, the \emph{Fisher Information} is defined as:
 \begin{align*}
-\mathcal{I}(\theta)&=\cov\left( \nabla \ell(\theta) \right)\\
+I(\theta)&=\cov\left( \nabla \ell(\theta) \right)\\
 &=\E\left[ \nabla \ell(\theta) \nabla \ell(\theta)\tran \right]-\E\left[ \nabla\ell(\theta)\right] \E\left[\nabla \ell(\theta)\tran \right]\\
 &=-\E\left[\matr{H}\ell(\theta)\right]
 \end{align*}
 if $\Theta \subset \mathbb{R}$ we get
-$$\mathcal{I}(\theta)=\var\left[\ell^\prime (\theta)\right]=-\E\left[\ell^\dprime(\theta)\right]$$
+$$I(\theta)=\var\left[\ell^\prime (\theta)\right]=-\E\left[\ell^\dprime(\theta)\right]$$
 It is usually easier to compute the second derivative than to find the variance of the first derivative.\\
 \vspace{1mm}
-\textbf{Remark}: The Fisher information tells how curved (on average) the log-likehood $\ln L_ n(x_1, \ldots , x_ n, \theta )$ for several samples $X_1 = x_1, \ldots , X_ n = x_ n$ is. In particular, $\mathcal{I}(\theta ^*)$ tells how curved (on average) the log-likelihood is near the true parameter. As a rule of thumb, if the Fisher information $\mathcal{I}(\theta ^*)$ is large, then we expect the MLE to give a good estimate for $\theta^*$. 
+\textbf{Remark}: The Fisher information tells how curved (on average) the log-likehood $\ln L_ n(x_1, \ldots , x_ n, \theta )$ for several samples $X_1 = x_1, \ldots , X_ n = x_ n$ is. In particular, $I(\theta ^*)$ tells how curved (on average) the log-likelihood is near the true parameter. As a rule of thumb, if the Fisher information $I(\theta ^*)$ is large, then we expect the MLE to give a good estimate for $\theta^*$. 
 
 \subsubsection{Fisher Information explicitly from the pdf/pmf}
-Let $\theta \in \Theta \subset \mathbb {R}^ d$ and let $(E,\mathbf{P}\{\theta\}_{\theta \in \Theta})$ be a statistical model. Let $f_{\theta }(\mathbf x)$ be the pdf of the distribution $\mathbf{P}_\theta$. Then, the Fisher information $\mathcal{I}$ of the statistical model is
- $$\mathcal{I}(\theta ) = \textsf{Cov}(\nabla \ell (\theta )) = -\mathbb E\left[\mathbf{H}\ell (\theta )\right],$$	
+Let $\theta \in \Theta \subset \mathbb {R}^ d$ and let $(E,\mathbf{P}\{\theta\}_{\theta \in \Theta})$ be a statistical model. Let $f_{\theta }(\mathbf x)$ be the pdf of the distribution $\mathbf{P}_\theta$. Then, the Fisher information $I$ of the statistical model is
+ $$I(\theta ) = \textsf{Cov}(\nabla \ell (\theta )) = -\mathbb E\left[\mathbf{H}\ell (\theta )\right],$$	
  where $\ell (\theta ) = \ln f_\theta (\mathbf X)$\\
  The definition when the distribution has a pmf $p_\theta (\mathbf x)$ is almost the same, with the expectation taken with respect to the pmf. 
  
@@ -740,7 +740,7 @@ Let $\theta \in \Theta \subset \mathbb {R}^ d$ and let $(E,\mathbf{P}\{\theta\}_
 \item The parameter is identifiable;
 \item For all $\theta \in \Theta$, the support of $\mathbb{P}_\theta$ does not depend on $\theta$;
  \item $\theta^*$ is not on the boundary of $\Theta$;
- \item $\mathcal{I}(\theta)$ is invertible in the neighbourhood of $\theta^*$;
+ \item $I(\theta)$ is invertible in the neighbourhood of $\theta^*$;
  \item A few more technical conditions.
  \end{itemize}
  \vspace{1mm}
@@ -749,7 +749,7 @@ Let $\theta \in \Theta \subset \mathbb {R}^ d$ and let $(E,\mathbf{P}\{\theta\}_
 {\renewcommand{\arraystretch}{2}%
 \begin{tabular}{@{} ll @{}} % Column formatting, @{} suppresses leading/trailing space
       Consistency & $\widehat \theta^{\textsf{MLE}}_n\xrightarrow[n\to\infty]{\mathbb{P}}\theta^*\quad \text{w.r.t }\mathbb{P}_{\theta^*}$\\ 
-     Asymptotic normality &  $ \sqrt{n}\left(\widehat \theta^{\textsf{MLE}}_n-\theta^*\right) \xrightarrow[n\to\infty]{(d)} \mathcal{N}_d\left(0,\mathcal{I}^{-1}(\theta^*) \right)$\\
+     Asymptotic normality &  $ \sqrt{n}\left(\widehat \theta^{\textsf{MLE}}_n-\theta^*\right) \xrightarrow[n\to\infty]{(d)} \mathcal{N}_d\left(0,I^{-1}(\theta^*) \right)$\\
 \end{tabular}}
  \vspace{1mm}
  
@@ -828,7 +828,7 @@ $H_1:\quad\theta\neq\theta_0$\\
 \item If $H_0$ is true, then
 \end{itemize}
 
-$$n(\widehat\theta^{MLE}-\theta)^T\mathcal{I}(\widehat\theta^{MLE})(\widehat\theta^{MLE}-\theta)\xrightarrow[n\to\infty]{(d)}\chi_d^2$$
+$$n(\widehat\theta^{MLE}-\theta)^TI(\widehat\theta^{MLE})(\widehat\theta^{MLE}-\theta)\xrightarrow[n\to\infty]{(d)}\chi_d^2$$
 
 \subsubsection{Likelihood Ratio Test}
 $$T_n=2\ln (\ell_n(\hat\theta_n)-\ell_n(\hat\theta_n^c))$$

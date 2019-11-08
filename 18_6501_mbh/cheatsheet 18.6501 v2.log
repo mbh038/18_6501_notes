@@ -1,4 +1,4 @@
-This is LuaTeX, Version 0.95.0 (TeX Live 2016)  (format=lualatex 2016.10.10)  4 NOV 2019 10:52
+This is LuaTeX, Version 0.95.0 (TeX Live 2016)  (format=lualatex 2016.10.10)  4 NOV 2019 13:41
  restricted system commands enabled.
  file:line:error style messages enabled.
 **"cheatsheet 18.6501 v2.tex"
@@ -563,7 +563,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.129 seconds)
+luaotfload | main : initialization completed in 0.141 seconds)
 Lua module: fontspec 2016/02/01 2.5a Advanced font selection for LuaLaTeX.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
 Package: fontspec-luatex 2016/02/01 v2.5a Font selection for XeLaTeX and LuaLaTe
@@ -1290,10 +1290,10 @@ Here is how much of LuaTeX's memory you used:
  15286 words of node memory still in use:
    8 hlist, 2 vlist, 2 rule, 1866 glue, 1 kern, 449 attribute, 50 glue_spec, 449
  attribute_list, 1 write nodes
-   avail lists: 1:5,2:1650,3:386,4:30,5:664,6:4787,7:1946,8:151,9:1088,10:22,11:
+   avail lists: 1:5,2:1634,3:386,4:30,5:664,6:4787,7:1946,8:151,9:1088,10:22,11:
 366
  28667 multiletter control sequences out of 65536+600000
- 93 fonts using 19762655 bytes
+ 93 fonts using 19762495 bytes
  55i,18n,64p,1074b,552s stack positions out of 5000i,500n,10000p,200000b,100000s
 </usr/local/texlive/2016/texmf-dist/fonts/opentype/public/xits/xits-math.otf></u
 sr/local/texlive/2016/texmf-dist/fonts/opentype/public/lm/lmroman9-bold.otf></us
@@ -1311,7 +1311,7 @@ usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr
 /local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/lo
 cal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local
 /texlive/2016/texmf-dist/fonts/type1/public/doublestroke/dsrom8.pfb>
-Output written on cheatsheet 18.6501 v2.pdf (6 pages, 154901 bytes).
+Output written on cheatsheet 18.6501 v2.pdf (6 pages, 154748 bytes).
 
 PDF statistics: 473 PDF objects out of 1000 (max. 8388607)
  420 compressed objects within 5 object streams
